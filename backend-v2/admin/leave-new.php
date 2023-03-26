@@ -1,18 +1,3 @@
-<style>
-    .error {
-        color: #ff0000 !important;
-        position: relative !important;
-        line-height: 1 !important;
-        font-size: 1rem !important;
-        width: 100% !important;
-    }
-
-    .form-control.error {
-        border: 1px solid #ff0000;
-        color: #5a5c69 !important
-    }
-</style>
-
 <div class="container-fluid">
 
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -59,7 +44,7 @@
                                 <input type="date" class="form-control" id="to_date" name="to_date" autocomplete="off">
                             </div>
                         </div>
-                        <div class="form-group row">
+                        <div class="form-group row mt-3">
                             <div class="col-sm-6 mb-3 mb-sm-0">
                                 <button class="btn btn-primary btn-user btn-block">Submit Details</button>
                             </div>
@@ -73,49 +58,3 @@
         </div>
     </div>
 </div>
-
-
-<script>
-    $(document).ready(function() {
-        $("#new_leave").validate({
-            // Define validation rules
-            rules: {
-                leave_type: "required",
-                from_date: "required",
-                to_date: "required",
-                leave_type: {
-                    required: true
-                },
-                from_date: {
-                    required: true,
-                },
-                to_date: {
-                    required: true,
-                },
-            },
-            // Specify validation error messages
-            messages: {
-                leave_type: "Please Select a valid Type",
-                from_date: "Please provide a valid Date",
-                to_date: "Please provide a valid Date",
-            },
-            submitHandler: function(form) {
-                $.ajax({
-                    url: './php/actions.php?action=save_leave',
-                    data: $("#new_leave").serialize(),
-                    type: 'POST',
-                    success: function(resp) {
-                        console.log(resp);
-                        if (resp == 1) {
-                            setTimeout(() => {
-                                location.reload();
-                            }, 1000);
-                        } else {
-                            console.log(resp);
-                        }
-                    }
-                });
-            }
-        });
-    });
-</script>

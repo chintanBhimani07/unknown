@@ -1,17 +1,3 @@
-<style>
-    .error {
-        color: #ff0000 !important;
-        position: relative !important;
-        line-height: 1 !important;
-        font-size: 1rem !important;
-        width: 100% !important;
-    }
-
-    .form-control.error {
-        border: 1px solid #ff0000;
-        color: #5a5c69 !important
-    }
-</style>
 <?php
 $leaveId = $_GET['leaveId'];
 $isPending = false;
@@ -34,7 +20,7 @@ while ($row = $qry->fetch_assoc()) {
                     <a href="./index.php?page=leave-dashboard" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-list fa-sm text-white mr-2"></i>Leaves</a>
                 </div>
 
-                <div class="row">
+                <div class="row scroll-component">
                     <div class="col-lg-12">
                         <div class="card shadow mb-4">
                             <a href="#collapseCardExample" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
@@ -214,48 +200,48 @@ while ($row = $qry->fetch_assoc()) {
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <?php
-                if ($isPending && $_SESSION['login_user_access_type'] == 1) { ?>
-                    <div class="d-flex align-items-center justify-content-around ">
-                        <div class="w-50">
-                            <button class="btn btn-warning text-dark btn-user btn-block btnAction">Take Action</button>
-                            <button class="btn btn-danger text-light btn-user btn-block btnRemove">Remove Action</button>
-                        </div>
-                    </div>
 
-                    ?>
-                    <div class="row take_action mt-5">
-                        <div class="col-xl-12 col-lg-7">
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Fill Up Details</h6>
-                                </div>
-                                <div class="card-body">
-                                    <form id="new_leave_type">
-                                        <input type="hidden" name="leave_id" value="<?php echo $leaveId; ?>">
-                                        <div class="form-group">
-                                            <label for="leave_status" class="col-form-label mr-1">Leave Status</label><span class="text-danger">*</span>
-                                            <select class="form-control custom-select" id="leave_status" name="leave_status">
-                                                <option value="" selected>Select Status</option>
-                                                <option value="2">Approved</option>
-                                                <option value="1">Declined</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="admin_remarks" class="col-form-label mr-1">Admin Remarks</label><span class="text-danger">*</span>
-                                            <textarea type="text" class="form-control" id="admin_remarks" name="admin_remarks" autocomplete="off"></textarea>
-                                        </div>
-                                        <div class="form-group ">
-                                            <button class="btn btn-primary submitBtn btn-user btn-block">Submit Details</button>
-                                        </div>
-                                    </form>
+
+                        <?php
+                        if ($isPending && $_SESSION['login_user_access_type'] == 1) { ?>
+                            <div class="d-flex align-items-center justify-content-around ">
+                                <div class="w-50">
+                                    <button class="btn btn-warning text-dark btn-user btn-block btnAction">Take Action</button>
+                                    <button class="btn btn-danger text-light btn-user btn-block btnRemove">Remove Action</button>
                                 </div>
                             </div>
-                        </div>
+                            <div class="row take_action mt-5">
+                                <div class="col-xl-12 col-lg-7">
+                                    <div class="card shadow mb-4">
+                                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                            <h6 class="m-0 font-weight-bold text-primary">Fill Up Details</h6>
+                                        </div>
+                                        <div class="card-body">
+                                            <form id="leave_action">
+                                                <input type="hidden" name="leave_id" value="<?php echo $leaveId; ?>">
+                                                <div class="form-group">
+                                                    <label for="leave_status" class="col-form-label mr-1">Leave Status</label><span class="text-danger">*</span>
+                                                    <select class="form-control custom-select" id="leave_status" name="leave_status">
+                                                        <option value="" selected>Select Status</option>
+                                                        <option value="2">Approved</option>
+                                                        <option value="1">Declined</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="admin_remarks" class="col-form-label mr-1">Admin Remarks</label><span class="text-danger">*</span>
+                                                    <textarea type="text" class="form-control" id="admin_remarks" name="admin_remarks" autocomplete="off"></textarea>
+                                                </div>
+                                                <div class="form-group ">
+                                                    <button class="btn btn-primary submitBtn btn-user btn-block">Submit Details</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php } ?>
                     </div>
-                <?php } ?>
+                </div>
             </div>
 <?php
         }
@@ -276,41 +262,6 @@ while ($row = $qry->fetch_assoc()) {
             $('.take_action').hide();
             $('.btnAction').show();
             $('.btnRemove').hide();
-        });
-        $("#new_leave_type").validate({
-            // Define validation rules
-            rules: {
-                leave_status: "required",
-                admin_remarks: "required",
-                leave_status: {
-                    required: true
-                },
-                admin_remarks: {
-                    required: true,
-                },
-            },
-            // Specify validation error messages
-            messages: {
-                leave_status: "Please Select a valid Status",
-                admin_remarks: "Please provide a valid Remark",
-            },
-            submitHandler: function(form) {
-                $.ajax({
-                    url: './php/actions.php?action=take_leave_action',
-                    data: $("#new_leave_type").serialize(),
-                    type: 'POST',
-                    success: function(resp) {
-                        console.log(resp);
-                        if (resp == 1) {
-                            setTimeout(() => {
-                                location.reload();
-                            }, 1000);
-                        } else {
-                            console.log(resp);
-                        }
-                    }
-                });
-            }
         });
     });
 </script>

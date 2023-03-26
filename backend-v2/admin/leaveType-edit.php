@@ -1,18 +1,3 @@
-<style>
-    .error {
-        color: #ff0000 !important;
-        position: relative !important;
-        line-height: 1 !important;
-        font-size: 1rem !important;
-        width: 100% !important;
-    }
-
-    .form-control.error {
-        border: 1px solid #ff0000;
-        color: #5a5c69 !important
-    }
-</style>
-
 <?php
 
 $typeId = $_GET['typeId'];
@@ -55,53 +40,6 @@ while ($row = $qry->fetch_assoc()) { ?>
             </div>
         </div>
     </div>
-
 <?php
 }
 ?>
-
-<script>
-    $(document).ready(function() {
-        $("#edit_leave_type").validate({
-            // Define validation rules
-            rules: {
-                leave_type: "required",
-                leave_description: "required",
-                leave_type: {
-                    required: true
-                },
-                leave_description: {
-                    required: true,
-                    minlength: 20,
-                    maxlength: 200,
-                },
-            },
-            // Specify validation error messages
-            messages: {
-                leave_type: "Please provide a valid Type",
-                leave_description: {
-                    required: "Please provide a valid Description",
-                    minlength: "Description must be min 20 characters long",
-                    maxlength: "Description must be max 200 characters long"
-                },
-            },
-            submitHandler: function(form) {
-                $.ajax({
-                    url: './php/actions.php?action=edit_leaveType',
-                    data: $("#edit_leave_type").serialize(),
-                    type: 'POST',
-                    success: function(resp) {
-                        console.log(resp);
-                        if (resp == 1) {
-                            setTimeout(() => {
-                                window.location = './index.php?page=leave-types';
-                            }, 1000);
-                        } else {
-                            console.log(resp);
-                        }
-                    }
-                });
-            }
-        });
-    });
-</script>

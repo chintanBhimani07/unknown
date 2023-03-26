@@ -28,13 +28,13 @@ if ($action == 'email_verification') {
 
 // Email Verification for reset password
 if ($action == 'otp_verification') {
-    // $verification = $task->verify_otp();
-    // if ($verification) {
-    //     echo json_encode($verification);
-    // }
+    $verification = $task->verify_otp();
+    if ($verification) {
+        echo json_encode($verification);
+    }
 }
 
-    
+
 // User Password Change
 if ($action == 'change_password') {
     $change_password = $task->change_password();
@@ -64,9 +64,9 @@ if ($action == 'delete_employee') {
         echo json_encode($delete_employee);
     }
 }
-if($action == 'upload_emp_profile'){
+if ($action == 'upload_emp_profile') {
     $upload_emp_profile = $task->upload_emp_profile();
-    if($upload_emp_profile){
+    if ($upload_emp_profile) {
         echo json_encode($upload_emp_profile);
     }
 }
@@ -91,14 +91,14 @@ if ($action == 'delete_user') {
 
 
 // Leave Types 
-if($action == 'save_leaveType'){
+if ($action == 'save_leaveType') {
     $para = "insert";
     $save_leaveType = $task->leaveType_add($para);
     if ($save_leaveType) {
         echo json_encode($save_leaveType);
     }
 }
-if($action == 'edit_leaveType'){
+if ($action == 'edit_leaveType') {
     $para = "update";
     $edit_leaveType = $task->leaveType_add($para);
     if ($edit_leaveType) {
@@ -114,13 +114,13 @@ if ($action == 'delete_leaveType') {
 
 
 // Leave Management
-if($action == 'save_leave'){
+if ($action == 'save_leave') {
     $save_leave = $task->leave_add();
     if ($save_leave) {
         echo json_encode($save_leave);
     }
 }
-if($action == 'take_leave_action'){
+if ($action == 'take_leave_action') {
     $take_leave_action = $task->leave_action();
     if ($take_leave_action) {
         echo json_encode($take_leave_action);
@@ -167,16 +167,16 @@ if ($action == 'delete_task') {
         echo json_encode($delete_task);
     }
 }
-if($action == 'work_update'){
+if ($action == 'work_update') {
     $work_update = $task->task_update();
-    if($work_update){
+    if ($work_update) {
         echo json_encode($work_update);
     }
 }
 
 
 // Productivity
-if($action == 'save_productivity'){
+if ($action == 'save_productivity') {
     $para = "insert";
     $save_productivity = $task->productivity_add($para);
     if ($save_productivity) {
@@ -184,14 +184,14 @@ if($action == 'save_productivity'){
     }
 }
 
-if($action == 'edit_productivity'){
+if ($action == 'edit_productivity') {
     $para = "update";
     $edit_productivity = $task->productivity_add($para);
     if ($edit_productivity) {
         echo json_encode($edit_productivity);
     }
 }
-if($action == 'delete_productivity'){
+if ($action == 'delete_productivity') {
     $delete_productivity = $task->productivity_delete();
     if ($delete_productivity) {
         echo json_encode($delete_productivity);
@@ -245,9 +245,16 @@ if ($action == 'delete_exp') {
         echo json_encode($delete_exp);
     }
 }
-if($action == 'upload_exp_profile'){
+if ($action == 'upload_exp_profile') {
     $upload_exp_profile = $task->upload_exp_profile();
-    if($upload_exp_profile){
+    if ($upload_exp_profile) {
         echo json_encode($upload_exp_profile);
+    }
+}
+
+if ($action == 'lead_action') {
+    $lead_action  = $task->lead_update();
+    if ($lead_action) {
+        echo json_encode($lead_action);
     }
 }

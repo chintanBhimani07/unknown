@@ -1,9 +1,9 @@
-<div class="container-fluid">
+<div >
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Projects Report</h1>
     </div>
     <div class="row">
-        <div class="col-xl-12 col-lg-7">
+        <div class="col-12">
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-primary">Project List</h6>

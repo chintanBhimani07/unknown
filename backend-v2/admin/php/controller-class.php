@@ -1,7 +1,7 @@
 <?php
 session_start();
 ini_set('display_errors', 1);
-
+date_default_timezone_set('Asia/Kolkata');
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -20,6 +20,11 @@ class Controller
         include '../config/db.config.php';
         $this->db = $con;
     }
+
+    private $arr = array(
+        'status' => 0,
+        'message' => ''
+    );
 
     public function __destruct()
     {
@@ -50,89 +55,156 @@ class Controller
         return $result;
     }
 
+    private function passwordGenerator()
+    {
+        $content = "abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ0123456789@#$";
+        $pass = array();
+        $contentLength = strlen($content) - 1;
+        for ($i = 0; $i < 8; $i++) {
+            $n = rand(0, $contentLength);
+            $pass[] = $content[$n];
+        }
+        return implode($pass);
+    }
+
 
     // Send Email 
-    private function sendOTPtoMail($email)
+    private function sendMail($email, $subject, $body)
     {
-        $otp = $this->generateOTP();
         $mail = new PHPMailer(true);
         $mail->IsSMTP();
-        $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
-        $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-        $mail->Username   = 'dream.studio.ar@gmail.com';                     //SMTP username
-        $mail->Password   = 'zghnyewjtblgkwfr';                               //SMTP password
+        $mail->Host       = 'smtp.gmail.com';
+        $mail->SMTPAuth   = true;
+        $mail->Username   = 'dream.studio.ar@gmail.com';
+        $mail->Password   = 'pgpvrrgjlykaqkjd';
         $mail->SMTPSecure = 'ssl';
         $mail->Port       = 465;
-
-        $mail->setFrom('dream.studio.ar@gmail.com');
+        $mail->setFrom('dream.studio.ar@gmail.com', 'Dream Studio Pvt. Ltd');
         $mail->addAddress($email);
         $mail->isHTML(true);
-        $mail->Subject = "Password reset verification";
-        $mail->Body = `
-        <h4>Please use the verification code below to sign in.</h4>
-        <h2><b>$otp</b></h2>
-        <p>If you didn't request this. You can ignore this email.</p> 
-        <h4>Thanks.</h4>
-        <h4>The Dream Studio Team.</h4>
-        `;
-
+        $mail->Subject = $subject;
+        $mail->Body = $body;
         try {
             $mail->send();
-            return 1;
+            return true;
         } catch (Exception $e) {
-            return 2;
+            return $e;
         }
     }
 
+
+    // User Login
     public function login_application_user()
     {
         extract($_POST);
         $query = $this->db->query("SELECT * FROM users where user_email = '" . $user_email . "' and user_password = '" . md5($user_password) . "'  ");
-        if ($query->num_rows > 0) {
+        if ($query->num_rows === 1) {
             foreach ($query->fetch_assoc() as $key => $val) {
                 if ($key != 'user_password' && !is_numeric($key)) {
                     $_SESSION['login_' . $key] = $val;
                 }
             }
-            return array(
-                'status' => 200,
-                'message' => 'Login Successfully.'
-            );
+            $this->arr['status'] = 200;
+            $this->arr['message'] = 'Login Successfully.';
+            return $this->arr;
         } else {
-            return array(
-                'status' => 400,
-                'message' => "Username or Password are incorrect."
-            );
+            $this->arr['status'] = 500;
+            $this->arr['message'] = 'Username or Password are incorrect.';
+            return $this->arr;
         }
     }
 
-
+    // Email Verification
     public function verify_email()
     {
         extract($_POST);
         $qry = $this->db->query("SELECT * FROM users WHERE user_email='$user_email'")->num_rows;
         if ($qry == 1) {
-            if ($this->sendOTPtoMail($user_email)) {
-                return array(
-                    'status' => 200,
-                    'message' => 'OTP Sent Successfully.'
-                );
+            $otp = $this->generateOTP();
+            $subject = 'Password reset verification';
+            $body = "
+            <h1>Verification Code</h1>
+            <p>Please use below verification code  to reset your password.</p>
+            <h2>$otp</h2>
+            <p>If you didn't request this, you can ignore this email. This OTP valid for only 10 minutes.</p>
+            <h3 style='margin-bottom: 0px;padding-bottom:0px'>Thanks.</h3>
+            <h4 style='margin-top: 0px;padding-top:0px'>The Dream Studio Team</h4>
+            ";
+            if ($this->sendMail($user_email, $subject, $body)) {
+                $id = $this->guidV4();
+                $qry = $this->db->query("INSERT otplogs (otp_id,otp_email,otp) VALUES('$id','$user_email',$otp);");
+                if ($qry) {
+                    $startTime = date("Y-m-d H:i:s");
+                    $limitedTime = date('Y-m-d H:i:s', strtotime('+0 hour +10 minutes', strtotime($startTime)));
+                    $_SESSION['otp'] = $otp;
+                    $_SESSION['time_limit'] = $limitedTime;
+                    $_SESSION['user_email'] = $user_email;
+                    $this->arr['status'] = 200;
+                    $this->arr['message'] = 'OTP Sent Successfully.';
+                    return $this->arr;
+                }
             } else {
-                return array(
-                    'status' => 400,
-                    'message' => 'Try Sometime later.'
-                );
+                $this->arr['status'] = 500;
+                $this->arr['message'] = 'Something went wrong, please try again later.';
+                return $this->arr;
             }
         } else {
-            return array(
-                'status' => 400,
-                'message' => 'Invalid Email.'
-            );
+            $this->arr['status'] = 400;
+            $this->arr['message'] = 'Invalid Email Address.';
+            return $this->arr;
         }
     }
 
+    // Otp Verification
     public function verify_otp()
     {
+        extract($_POST);
+        $currentTime = date("Y-m-d H:i:s");
+        $limitTime = $_SESSION['time_limit'];
+        if ($user_otp == $_SESSION['otp']) {
+            if (strtotime($currentTime) <= strtotime($limitTime)) {
+                $email = $_SESSION['user_email'];
+                $password = $this->passwordGenerator();
+                $subject = 'Get Started';
+                $body = "
+                <p>Your account has been updated on the <b>Dream Studio Ar.</b>, below are your system generated credentials.</p>
+                <p>Please Use below username and password to login your account.</p>
+                <h4 style='margin-bottom: 0px;padding-bottom:0px'>Username: <span>$email</span></h4>
+                <h4 style='margin-top: 0px;padding-top:0px'>Password: <span>$password</span></h4>
+                <p>Don't hare your with anyone, if something went wrong it's your responsibility.</p>
+                <h3>Thanks.</h3>
+                <h4>The Dream Studio Team</h4>
+                ";
+                if ($this->sendMail($email, $subject, $body)) {
+                    $qry = $this->db->query("UPDATE users SET user_password=md5('$password') WHERE user_email='$email';");
+                    session_destroy();
+                    if ($qry) {
+                        $this->arr['status'] = 200;
+                        $this->arr['message'] = 'OTP Verified Successfully.';
+                        return $this->arr;
+                    } else {
+                        $this->arr['status'] = 500;
+                        $this->arr['message'] = 'Something went wrong, please try again later.';
+                        return $this->arr;
+                    }
+                } else {
+                    $this->arr['status'] = 500;
+                    $this->arr['message'] = 'Something went wrong, please try again later.';
+                    return $this->arr;
+                }
+                $this->arr['status'] = 200;
+                $this->arr['message'] = 'OTP Matched';
+                return $this->arr;
+            } else {
+                $this->arr['status'] = 400;
+                $this->arr['message'] = 'OTP has been expired.';
+                return $this->arr;
+            }
+        } else {
+            $this->arr['status'] = 400;
+            $this->arr['message'] = 'You entered wrong OTP.';
+            return $this->arr;
+        }
     }
 
     // User Password Change
@@ -144,21 +216,18 @@ class Controller
             if ($row['user_password'] == md5($user_old_password)) {
                 $updatePassword = $this->db->query("UPDATE users SET user_password=md5('$user_password') WHERE user_id='$user_id';");
                 if ($updatePassword) {
-                    return array(
-                        'status' => 200,
-                        'message' => 'Password change Successfully.'
-                    );
+                    $this->arr['status'] = 200;
+                    $this->arr['message'] = 'Password change Successfully.';
+                    return $this->arr;
                 } else {
-                    return array(
-                        'status' => 500,
-                        'message' => "Value can't change,try sometimes later."
-                    );
+                    $this->arr['status'] = 500;
+                    $this->arr['message'] = "Something went wrong, please try again later.";
+                    return $this->arr;
                 }
             } else {
-                return array(
-                    'status' => 400,
-                    'message' => "Your password does not match."
-                );
+                $this->arr['status'] = 400;
+                $this->arr['message'] = 'current password does not match.';
+                return $this->arr;
             }
         }
     }
@@ -200,28 +269,24 @@ class Controller
                     if ($emp_designation == 'HOD') {
                         $addHod = $this->db->query("INSERT INTO hod SET hod_id='$hodId', hod_first_name='$emp_first_name', hod_last_name='$emp_last_name', department_name='$emp_department', emp_id='$empId' ");
                         if ($addHod) {
-                            return array(
-                                'status' => 200,
-                                'message' => 'Employee and hod added successfully.'
-                            );
+                            $this->arr['status'] = 200;
+                            $this->arr['message'] = 'Employee and hod added successfully.';
+                            return $this->arr;
                         }
                     } else {
-                        return array(
-                            'status' => 200,
-                            'message' => 'Employee added successfully.'
-                        );
+                        $this->arr['status'] = 200;
+                        $this->arr['message'] = 'Employee added successfully.';
+                        return  $this->arr;
                     }
                 } else {
-                    return array(
-                        'status' => 500,
-                        'message' => "Employee can't added,Please try sometimes later."
-                    );
+                    $this->arr['status'] = 500;
+                    $this->arr['message'] = "Something went wrong,please try again later.";
+                    return  $this->arr;
                 }
             } else {
-                return array(
-                    'status' => 400,
-                    'message' => 'Employee already exists.'
-                );
+                $this->arr['status'] = 400;
+                $this->arr['message'] = 'Employee already exists.';
+                return  $this->arr;
             }
         }
         if ($para == 'update') {
@@ -242,23 +307,20 @@ class Controller
                 if ($emp_designation == 'HOD') {
                     $addHod = $this->db->query("INSERT INTO hod SET hod_id='$hodId', hod_first_name='$emp_first_name', hod_last_name='$emp_last_name', department_name='$emp_department', emp_id='$emp_id' ");
                     if ($addHod) {
-                        return array(
-                            'status' => 200,
-                            'message' => 'Employee and hod updated successfully.'
-                        );
+                        $this->arr['status'] = 200;
+                        $this->arr['message'] = 'Employee and hod updated successfully.';
+                        return $this->arr;
                     }
                 } else {
                     $deleteHod = $this->db->query("DELETE FROM hod WHERE emp_id='$emp_id' ");
-                    return array(
-                        'status' => 200,
-                        'message' => 'Employee updated successfully.'
-                    );
+                    $this->arr['status'] = 200;
+                    $this->arr['message'] = 'Employee updated successfully.';
+                    return $this->arr;
                 }
             } else {
-                return array(
-                    'status' => 500,
-                    'message' => "Employee can't added,Please try sometimes later."
-                );
+                $this->arr['status'] = 500;
+                $this->arr['message'] = "Employee can't added,Please try sometimes later.";
+                return $this->arr;
             }
         }
     }
@@ -270,21 +332,18 @@ class Controller
             $move = move_uploaded_file($_FILES['emp_profile_pic']['tmp_name'], '../assets/uploads/' . $fname);
             $updateEmp = $this->db->query("UPDATE employees SET emp_profile_pic='$fname' WHERE emp_code='$emp_code'");
             if ($updateEmp) {
-                return array(
-                    'status' => 200,
-                    'message' => 'Profile picture upload successfully.'
-                );
+                $this->arr['status'] = 200;
+                $this->arr['message'] = 'Profile picture upload successfully.';
+                return $this->arr;
             } else {
-                return array(
-                    'status' => 500,
-                    'message' => 'Something went wrong.'
-                );
+                $this->arr['status'] = 500;
+                $this->arr['message'] = 'Something went wrong, please try again later.';
+                return $this->arr;
             }
         } else {
-            return array(
-                'status' => 400,
-                'message' => 'Image not set.'
-            );
+            $this->arr['status'] = 400;
+            $this->arr['message'] = 'Image not set.';
+            return $this->arr;
         }
     }
     public function employee_delete()
@@ -303,15 +362,13 @@ class Controller
             if ($isHod == 1) {
                 $deleteHod = $this->db->query("DELETE FROM hod WHERE emp_id='$emp_id'");
             }
-            return array(
-                'status' => 200,
-                'message' => 'Employee Delete Successfully.'
-            );
+            $this->arr['status'] = 200;
+            $this->arr['message'] = 'Employee Delete Successfully.';
+            return $this->arr;
         } else {
-            return array(
-                'status' => 400,
-                'message' => 'Something went wrong.'
-            );
+            $this->arr['status'] = 500;
+            $this->arr['message'] = 'Something went wrong,please try again later.';
+            return $this->arr;
         }
     }
 
@@ -355,17 +412,19 @@ class Controller
             if ($checkUserExists == 0) {
                 $insertUser = $this->db->query("INSERT INTO users SET $user_data");
                 if ($insertUser) {
-                    return array(
-                        'status' => 200,
-                        'message' => 'Users Added Successfully.'
-                    );
+                    $this->arr['status'] = 200;
+                    $this->arr['message'] = 'Users Added Successfully.';
+                    return $this->arr;
                 }
+            } else {
+                $this->arr['status'] = 400;
+                $this->arr['message'] = 'User already exists.';
+                return  $this->arr;
             }
         } else {
-            return array(
-                'status' => 400,
-                'message' => 'Something went wrong,please try again later.'
-            );
+            $this->arr['status'] = 500;
+            $this->arr['message'] = 'Something went wrong,please try again later.';
+            return $this->arr;
         }
     }
     public function user_delete()
@@ -373,15 +432,13 @@ class Controller
         extract($_POST);
         $qry = $this->db->query("DELETE FROM users WHERE user_id='$user_id'");
         if ($qry) {
-            return array(
-                'status' => 200,
-                'message' => 'Users Delete Successfully.'
-            );
+            $this->arr['status'] = 200;
+            $this->arr['message'] = 'Users Delete Successfully.';
+            return $this->arr;
         } else {
-            return array(
-                'status' => 400,
-                'message' => 'Something went wrong,please try again later.'
-            );
+            $this->arr['status'] = 500;
+            $this->arr['message'] = 'Something went wrong,please try again later.';
+            return $this->arr;
         }
     }
 
@@ -410,30 +467,30 @@ class Controller
             if ($checkType == 0) {
                 $addType = $this->db->query("INSERT INTO leavestype SET $leaveType_data");
                 if ($addType) {
-                    return array(
-                        'status' => 200,
-                        'message' => 'Leave Type Added Successfully.'
-                    );
+                    $this->arr['status'] = 200;
+                    $this->arr['message'] = 'Leave Type Added Successfully.';
+                    return $this->arr;
                 } else {
-                    return array(
-                        'status' => 400,
-                        'message' => 'Something went wrong,please try again later.'
-                    );
+                    $this->arr['status'] = 500;
+                    $this->arr['message'] = 'Something went wrong,please try again later.';
+                    return $this->arr;
                 }
+            } else {
+                $this->arr['status'] = 400;
+                $this->arr['message'] = 'Leave Type already exists.';
+                return  $this->arr;
             }
         }
         if ($para == 'update') {
             $updateType = $this->db->query("UPDATE leavestype SET $leaveType_data WHERE leave_type_id='$leave_type_id'");
             if ($updateType) {
-                return array(
-                    'status' => 200,
-                    'message' => 'Leave Type Update Successfully.'
-                );
+                $this->arr['status'] = 200;
+                $this->arr['message'] = 'Leave Type Update Successfully.';
+                return $this->arr;
             } else {
-                return array(
-                    'status' => 400,
-                    'message' => 'Something went wrong,please try again later.'
-                );
+                $this->arr['status'] = 500;
+                $this->arr['message'] = 'Something went wrong,please try again later.';
+                return $this->arr;
             }
         }
     }
@@ -442,15 +499,13 @@ class Controller
         extract($_POST);
         $query =  $this->db->query("DELETE FROM leavestype WHERE leave_type_id='$leave_type_id'");
         if ($query) {
-            return array(
-                'status' => 200,
-                'message' => 'Leave Type Delete Successfully.'
-            );
+            $this->arr['status'] = 200;
+            $this->arr['message'] = 'Leave Type Delete Successfully.';
+            return $this->arr;
         } else {
-            return array(
-                'status' => 400,
-                'message' => 'Something went wrong,please try again later.'
-            );
+            $this->arr['status'] = 500;
+            $this->arr['message'] = 'Something went wrong,please try again later.';
+            return $this->arr;
         }
     }
 
@@ -472,14 +527,22 @@ class Controller
                 }
             }
         }
-        $checkType = $this->db->query("SELECT * FROM leaves WHERE from_date	='$from_date' OR to_date='$to_date'")->num_rows;
+        $checkType = $this->db->query("SELECT * FROM leaves WHERE user_id='$user_id' AND leave_type='$leave_type' AND from_date	='$from_date' AND to_date='$to_date'")->num_rows;
         if ($checkType == 0) {
             $addType = $this->db->query("INSERT INTO leaves SET $leave_data");
             if ($addType) {
-                return 1;
+                $this->arr['status'] = 200;
+                $this->arr['message'] = 'Leave Added Successfully.';
+                return $this->arr;
             } else {
-                return 2;
+                $this->arr['status'] = 500;
+                $this->arr['message'] = 'Something went wrong,please try again later.';
+                return $this->arr;
             }
+        } else {
+            $this->arr['status'] = 400;
+            $this->arr['message'] = 'Leave already exists.';
+            return  $this->arr;
         }
     }
     public function leave_action()
@@ -488,9 +551,13 @@ class Controller
         $today = date("Y-m-d");
         $updateLeave = $this->db->query("UPDATE leaves SET leave_status='$leave_status',admin_remarks='$admin_remarks',admin_remarks_date='$today' WHERE leave_id='$leave_id';");
         if ($updateLeave) {
-            return 1;
+            $this->arr['status'] = 200;
+            $this->arr['message'] = 'Leave Update Successfully.';
+            return $this->arr;
         } else {
-            return 2;
+            $this->arr['status'] = 500;
+            $this->arr['message'] = 'Something went wrong,please try again later.';
+            return $this->arr;
         }
     }
 
@@ -527,17 +594,29 @@ class Controller
             if ($checkProjectExists == 0) {
                 $insertProject = $this->db->query("INSERT INTO projects SET $project_data;");
                 if ($insertProject) {
-                    return 1;
+                    $this->arr['status'] = 200;
+                    $this->arr['message'] = 'Project Added Successfully.';
+                    return $this->arr;
                 } else {
-                    return 2;
+                    $this->arr['status'] = 500;
+                    $this->arr['message'] = 'Something went wrong,please try again later.';
+                    return $this->arr;
                 }
+            } else {
+                $this->arr['status'] = 400;
+                $this->arr['message'] = 'Project Already Exists.';
+                return $this->arr;
             }
         } else if ($para == 'update') {
             $updateProject = $this->db->query("UPDATE projects SET $project_data WHERE project_id='$project_id'");
             if ($updateProject) {
-                return $updateProject;
+                $this->arr['status'] = 200;
+                $this->arr['message'] = 'Project Update Successfully.';
+                return $this->arr;
             } else {
-                return 2;
+                $this->arr['status'] = 500;
+                $this->arr['message'] = 'Something went wrong,please try again later.';
+                return $this->arr;
             }
         }
     }
@@ -570,21 +649,35 @@ class Controller
                 if ($insertTask) {
                     $changeProjectStatus = $this->db->query("UPDATE projects SET project_status=1 WHERE project_id='$project_id'");
                     if ($changeProjectStatus) {
-                        return 1;
+                        $this->arr['status'] = 200;
+                        $this->arr['message'] = 'Task Added Successfully.';
+                        return $this->arr;
                     } else {
-                        return 2;
+                        $this->arr['status'] = 200;
+                        $this->arr['message'] = 'Task Added Successfully.';
+                        return $this->arr;
                     }
                 } else {
-                    return 2;
+                    $this->arr['status'] = 500;
+                    $this->arr['message'] = 'Something went wrong,please try again later.';
+                    return $this->arr;
                 }
+            } else {
+                $this->arr['status'] = 400;
+                $this->arr['message'] = 'Task already exists.';
+                return  $this->arr;
             }
         }
         if ($para == 'update') {
             $updateTask = $this->db->query("UPDATE task SET $task_data WHERE task_id='$task_id'");
             if ($updateTask) {
-                return $updateTask;
+                $this->arr['status'] = 200;
+                $this->arr['message'] = 'Task Update Successfully.';
+                return $this->arr;
             } else {
-                return 2;
+                $this->arr['status'] = 500;
+                $this->arr['message'] = 'Something went wrong,please try again later.';
+                return $this->arr;
             }
         }
     }
@@ -595,10 +688,18 @@ class Controller
         if ($query) {
             $removeProductivity = $this->db->query("DELETE FROM productivity WHERE task_id='$task_id'");
             if ($removeProductivity) {
-                return $removeProductivity;
+                $this->arr['status'] = 200;
+                $this->arr['message'] = 'Task and Productivity Delete Successfully.';
+                return $this->arr;
             } else {
-                return 2;
+                $this->arr['status'] = 200;
+                $this->arr['message'] = 'Task Deleted Successfully.';
+                return $this->arr;
             }
+        } else {
+            $this->arr['status'] = 500;
+            $this->arr['message'] = 'Something went wrong,please try again later.';
+            return $this->arr;
         }
     }
     public function task_update()
@@ -655,22 +756,34 @@ class Controller
         $duration = abs(strtotime("2023-01-01 " . $end_time)) - abs(strtotime("2023-01-01 " . $start_time));
         $pro_data .= ", time_rendered  ='$duration'";
         if ($para == 'insert') {
-            $checkPro = $this->db->query("SELECT * FROM productivity WHERE productivity_subject='$productivity_subject'")->num_rows;
+            $checkPro = $this->db->query("SELECT * FROM productivity WHERE task_id='$task_id' AND project_id='$project_id' AND productivity_subject='$productivity_subject'")->num_rows;
             if ($checkPro  == 0) {
                 $insertPro = $this->db->query("INSERT INTO productivity SET $pro_data");
                 if ($insertPro) {
-                    return 1;
+                    $this->arr['status'] = 200;
+                    $this->arr['message'] = 'Productivity Added Successfully.';
+                    return $this->arr;
                 } else {
-                    return 2;
+                    $this->arr['status'] = 500;
+                    $this->arr['message'] = 'Something went wrong,please try again later.';
+                    return $this->arr;
                 }
+            } else {
+                $this->arr['status'] = 400;
+                $this->arr['message'] = 'Productivity Already exists.';
+                return $this->arr;
             }
         }
         if ($para == 'update') {
             $updatePro = $this->db->query("UPDATE productivity SET $pro_data WHERE productivity_id='$productivity_id'");
             if ($updatePro) {
-                return $updatePro;
+                $this->arr['status'] = 200;
+                $this->arr['message'] = 'Productivity Update Successfully.';
+                return $this->arr;
             } else {
-                return 2;
+                $this->arr['status'] = 500;
+                $this->arr['message'] = 'Something went wrong,please try again later.';
+                return $this->arr;
             }
         }
     }
@@ -679,9 +792,13 @@ class Controller
         extract($_POST);
         $deleteProductivity = $this->db->query("DELETE FROM productivity WHERE productivity_id='$productivity_id'");
         if ($deleteProductivity) {
-            return 1;
+            $this->arr['status'] = 200;
+            $this->arr['message'] = 'Productivity Delete Successfully.';
+            return $this->arr;
         } else {
-            return 2;
+            $this->arr['status'] = 500;
+            $this->arr['message'] = 'Something went wrong,please try again later.';
+            return $this->arr;
         }
     }
 
@@ -712,17 +829,29 @@ class Controller
 
                 $addClient = $this->db->query("INSERT INTO clients SET $client_data");
                 if ($addClient) {
-                    return $addClient;
+                    $this->arr['status'] = 200;
+                    $this->arr['message'] = 'Client Added Successfully.';
+                    return $this->arr;
                 } else {
-                    return $addClient;
+                    $this->arr['status'] = 500;
+                    $this->arr['message'] = 'Something went wrong,please try again later.';
+                    return $this->arr;
                 }
             } else {
-                return 2;
+                $this->arr['status'] = 500;
+                $this->arr['message'] = 'Client already exists';
+                return $this->arr;
             }
         } else if ($para == 'update') {
             $updateClient = $this->db->query("UPDATE clients SET $client_data WHERE client_id='$client_id'");
             if ($updateClient) {
-                return $updateClient;
+                $this->arr['status'] = 200;
+                $this->arr['message'] = 'Client Update Successfully.';
+                return $this->arr;
+            } else {
+                $this->arr['status'] = 500;
+                $this->arr['message'] = 'Something went wrong,please try again later.';
+                return $this->arr;
             }
         }
     }
@@ -732,9 +861,13 @@ class Controller
         extract($_POST);
         $query =  $this->db->query("DELETE FROM clients WHERE client_id='$client_id'");
         if ($query) {
-            return 1;
+            $this->arr['status'] = 200;
+            $this->arr['message'] = 'Client Delete Successfully.';
+            return $this->arr;
         } else {
-            return $query;
+            $this->arr['status'] = 500;
+            $this->arr['message'] = 'Something went wrong,please try again later.';
+            return $this->arr;
         }
     }
 
@@ -833,6 +966,26 @@ class Controller
             } else {
                 return 2;
             }
+        }
+    }
+
+
+
+    // lead Management
+    public function lead_update()
+    {
+        extract($_POST);
+        $qry = $this->db->query("UPDATE lead SET lead_status=$status WHERE lead_id='$leadId'");
+        if ($qry) {
+            return array(
+                'status' => 200,
+                'message' => 'Response Submitted Successfully',
+            );
+        } else {
+            return array(
+                'status' => 400,
+                'message' => 'Something went wrong, please try again later.',
+            );
         }
     }
 }

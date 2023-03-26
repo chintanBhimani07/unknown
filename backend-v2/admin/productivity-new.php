@@ -1,17 +1,3 @@
-<style>
-    .error {
-        color: #ff0000 !important;
-        position: relative !important;
-        line-height: 1 !important;
-        font-size: 1rem !important;
-        width: 100% !important;
-    }
-
-    .form-control.error {
-        border: 1px solid #ff0000;
-        color: #5a5c69 !important
-    }
-</style>
 <?php
 $projectId = $_GET['projectId'];
 $taskId = $_GET['taskId'];
@@ -31,7 +17,7 @@ $taskId = $_GET['taskId'];
         </h1>
     </div>
 
-    <div class="row add-employee-form">
+    <div class="row add-employee-form scroll-component">
         <div class="col-xl-12 col-lg-7">
             <div class="card shadow mb-4">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -76,65 +62,3 @@ $taskId = $_GET['taskId'];
         </div>
     </div>
 </div>
-
-<script>
-    $(document).ready(function() {
-
-        $("#new_productivity_form").validate({
-            // Define validation rules
-            rules: {
-                productivity_subject: "required",
-                productivity_date: "required",
-                start_time: "required",
-                end_time: "required",
-                productivity_comments: "required",
-                productivity_subject: {
-                    required: true
-                },
-                productivity_date: {
-                    required: true
-                },
-                start_time: {
-                    required: true
-                },
-                end_time: {
-                    required: true
-                },
-                productivity_comments: {
-                    required: true,
-                    minlength: 10,
-                    maxlength: 200,
-                },
-            },
-            // Specify validation error messages
-            messages: {
-                productivity_subject: "Please provide a valid subject",
-                productivity_date: "Please provide a valid date",
-                start_time: "Please select a valid start time",
-                end_time: "Please select a valid end time",
-                productivity_comments: {
-                    required: "Please provide a phone data",
-                    minlength: "Comments must be min 10 characters long",
-                    maxlength: "Comments must not be more than 200 characters long"
-                },
-            },
-            submitHandler: function(form) {
-                $.ajax({
-                    url: './php/actions.php?action=save_productivity',
-                    data: $("#new_productivity_form").serialize(),
-                    type: 'POST',
-                    success: function(resp) {
-                        console.log(resp);
-                        if (resp == 1) {
-                            setTimeout(() => {
-                                location.reload();
-                            }, 1000);
-                        } else {
-                            console.log(resp);
-                        }
-                    }
-                });
-            }
-        });
-    });
-</script>

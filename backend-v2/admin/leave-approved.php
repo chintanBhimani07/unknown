@@ -83,33 +83,3 @@ $userId = $_SESSION['login_user_id'];
         </div>
     </div>
 </div>
-
-
-<script>
-    $(document).ready(function() {
-        $('.deleteEmployee').click(function() {
-            console.log('click');
-            let id = $(this).data('id');
-            $.ajax({
-                url: './php/actions.php?action=delete_employee',
-                method: 'POST',
-                data: {
-                    emp_id: id
-                },
-                success: function(resp) {
-                    console.log(resp);
-                    if (resp == 1) {
-                        setTimeout(function() {
-                            location.reload()
-                        }, 1000);
-                    } else {
-                        console.log(resp);
-                    }
-                },
-                error: function(resp) {
-                    console.log(resp);
-                }
-            });
-        });
-    });
-</script>

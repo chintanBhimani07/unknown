@@ -27,7 +27,7 @@ while ($row = $qry->fetch_assoc()) { ?>
                         <h6 class="m-0 font-weight-bold text-primary">Fill Up Details</h6>
                     </div>
                     <div class="card-body">
-                        <form id="new_task_form">
+                        <form id="edit_task_form">
                             <input type="hidden" class="form-control" id="task_assign_from" name="task_assign_from" value="<?php echo $hodId; ?>" autocomplete="off">
                             <input type="hidden" class="form-control" id="project_id" name="project_id" value="<?php echo $projectId; ?>" autocomplete="off">
                             <input type="hidden" class="form-control" id="task_id" name="task_id" value="<?php echo $taskId; ?>" autocomplete="off">
@@ -97,30 +97,3 @@ while ($row = $qry->fetch_assoc()) { ?>
         </div>
     </div>
 <?php } ?>
-
-
-<script>
-    $(document).ready(function() {
-        $('#new_task_form').submit(function(e) {
-            e.preventDefault();
-            $.ajax({
-                url: './php/actions.php?action=edit_task',
-                data: new FormData($(this)[0]),
-                cache: false,
-                contentType: false,
-                processData: false,
-                method: 'POST',
-                type: 'POST',
-                success: function(resp) {
-                    if (resp == 1) {
-                        setTimeout(() => {
-                            window.location = './index.php?page=project-viewer&projectId=<?php echo $projectId; ?>';
-                        }, 1000);
-                    } else {
-                        console.log(resp);
-                    }
-                }
-            })
-        });
-    });
-</script>

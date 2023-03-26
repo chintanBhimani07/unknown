@@ -150,7 +150,6 @@ a:hover {
 	color: #979797fa;
 	font-weight: 600;
 	font-size: 0.875rem;
-	border: 1px solid #00ff14;
 }
 
 .btn-solid-reg {
@@ -282,8 +281,6 @@ a:hover {
 .form-control-select,
 .form-control-textarea {
 	width: 100%;
-	padding-top: 0.875rem;
-	padding-bottom: 0.875rem;
 	padding-left: 1.5rem;
 	border: 1px solid #5e6576;
 	border-radius: 8px;
@@ -291,7 +288,6 @@ a:hover {
 	color: #5e6576;
 	font-size: 0.875rem;
 	line-height: 1.5rem;
-	-webkit-appearance: none; /* removes inner shadow on form inputs on ios safari */
 }
 
 .form-control-select {
@@ -419,7 +415,7 @@ select {
 .navbar .nav-item.dropdown.show .nav-link,
 .navbar .nav-item .nav-link:hover,
 .navbar .nav-item .nav-link.active {
-	color: #e8097e;
+	color: #ff55749e;
 }
 
 /* Dropdown Menu */
@@ -456,7 +452,7 @@ select {
 
 .navbar .dropdown-item:hover {
 	background-color: #ffffff;
-	color: #e8097e;
+	color: #ff55749e;
 }
 
 .navbar .dropdown-divider {
@@ -475,8 +471,8 @@ select {
 }
 
 .navbar .btn-solid-sm {
-	border-color: #ff5574;
-	background-color: #ff5574;
+	border-color: #DD4A48;
+    background-color: #DD4A48;
 }
 
 .navbar .btn-solid-sm:hover {

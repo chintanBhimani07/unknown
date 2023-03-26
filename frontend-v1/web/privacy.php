@@ -29,7 +29,7 @@
     <link href="css/styles.css" rel="stylesheet">
 
     <!-- Favicon  -->
-    <link rel="icon" href="images/favicon.png">
+    <link rel="icon" href="images/favicon-32x32.png">
 </head>
 
 <body>
@@ -87,100 +87,109 @@
         <div class="container">
             <div class="row">
                 <div class="col-xl-10 offset-xl-1">
-                    <h2 class="mt-5 mb-3">1. Lorem ipsum dolor sit amet consectetur</h2>
-                    <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Senectus et netus et malesuada fames. Malesuada nunc vel risus commodo. Eget egestas purus viverra accumsan in nisl nisi. Pellentesque elit ullamcorper dignissim cras tincidunt lobortis et leo duis ut</p>
-                    <h3>1.1. Aenean euismod elementum nisi quis rampis de</h3>
-                    <p class="mb-5">Mauris a diam maecenas sed enim. Amet commodo nulla facilisi nullam vehicula ipsum a. Morbi tristique senectus et netus et. Lobortis feugiat vivamus at augue eget arcu. Amet aliquam id diam maecenas ultricies mi eget. Nisl purus in mollis nunc sed id semper risus. In dictum non consectetur a erat nam. Et tortor consequat id</p>
-                    <h3>1.2. Porta nibh venenatis rhoncus mattis rhoncus</h3>
-                    <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Senectus et netus et malesuada fames. Malesuada nunc vel risus commodo. Eget egestas purus viverra accumsan in nisl nisi. Pellentesque elit ullamcorper dignissim cras tincidunt lobortis incididunt ut labore et dolore.</p>
 
-                    <h2 class="mb-3">2. Et leo duis ut diam quam nulla</h2>
-                    <p>Et leo duis ut diam quam nulla. Purus in mollis nunc sed id semper. Aenean euismod elementum nisi quis. Mauris a diam maecenas sed enim. Amet commodo nulla facilisi nullam vehicula ipsum a. Morbi tristique senectus et netus et. Lobortis feugiat vivamus at augue eget arcu. Amet aliquam id diam maecenas ultricies mi eget. Nisl purus in moll.</p>
-                    <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Senectus et netus et malesuada fames. Malesuada nunc vel risus commodo. Eget egestas purus viverra accumsan in nisl nisi. Pellentesque elit ullamcorper dignissim cras tincidunt lobortis et leo duis ut diam.</p>
-                    <ul class="list-unstyled li-space-lg mb-4">
-                        <li class="d-flex">
-                            <i class="fas fa-square"></i>
-                            <div class="flex-grow-1"><strong>Quam nulla purus</strong> aenean euismod elementum nisi quis. Mauris a diam maecenas sed enim. Amet commodo nulla facilisi nullam vehicula ipsum a. Morbi tristique senectus et netus et lobortis feugiat</div>
-                        </li>
-                        <li class="d-flex">
-                            <i class="fas fa-square"></i>
-                            <div class="flex-grow-1"><strong>Vivamus at augue</strong> amet aliquam id diam maecenas ultricies mi eget. Nisl purus in mollis nunc sed id semper risus. In dictum non consectetur a erat nam. Et tortor consequat id porta nibh venenatis</div>
-                        </li>
-                        <li class="d-flex">
-                            <i class="fas fa-square"></i>
-                            <div class="flex-grow-1"><strong>Rhoncus mattis</strong> et leo duis ut diam quam nulla. Purus in mollis nunc sed id semper. Aenean euismod elementum nisi quis. Mauris a diam maecenas sed enim. Amet commodo nulla facilisi nullam</div>
-                        </li>
-                    </ul>
-                    <p class="mb-5">Amet commodo nulla facilisi nullam vehicula ipsum a. Morbi tristique senectus et netus et. Lobortis feugiat vivamus at augue eget arcu. Amet aliquam id diam maecenas ultricies mi eget. Nisl purus in mollis nunc sed id semper risus. In dictum non consectetur a erat nam. Et tortor consequat id porta nibh venenatis rhoncus mattis rhoncus.</p>
-                    <div class="text-box mb-5">
-                        <h3>Morbi tristique senectus et netus et lobortis feug</h3>
-                        <p>Malesuada nunc vel risus commodo. Eget egestas purus viverra accumsan in nisl nisi. Pellentesque elit ullamcorper dignissim cras tincidunt lobortis. Et leo duis ut diam quam nulla. Purus in mollis nunc sed id semper. Aenean euismod elementum nisi quis. Mauris a diam maecenas sed enim. Amet commodo nulla facilisi nullam vehicula ipsum a. Morbi tristique senectus et netus et lobortis feugiat.</p>
-                    </div> <!-- end of text-box -->
+                    <p>DA Ltd is an Architecture business committed to respecting and protecting your privacy. Our Privacy Policy sets out how any personal data we collect from you either directly, on or through our website or when you sign up to follow our social media pages is processed, in accordance with The Data Protection Law, 2017. </p>
 
-                    <h2 class="mb-3">3. Amet aliquam id diam maecenas</h2>
-                    <p class="mb-5">Malesuada nunc vel risus commodo. Eget egestas purus viverra accumsan in nisl nisi. Pellentesque elit ullamcorper dignissim cras tincidunt lobortis. Et leo duis ut diam quam nulla. Purus in mollis nunc sed id semper. Aenean euismod elementum nisi quis. Mauris a diam maecenas sed enim amet commodo nulla.</p>
-                    <h3>3.1. Facilisi nullam vehicula ipsum a morbi</h3>
-                    <p class="mb-5">Morbi tristique senectus et netus et. Lobortis feugiat vivamus at augue eget arcu. Amet aliquam id diam maecenas ultricies mi eget. Nisl purus in mollis nunc sed id semper risus. In dictum non consectetur a erat nam. Et tortor consequat id porta nibh venenatis. Rhoncus mattis rhoncus urna neque viverra.</p>
-                    <h3>3.2. Lorem ipsum dolor sit amet consectetur</h3>
-                    <p class="mb-5">Et leo duis ut diam quam nulla. Purus in mollis nunc sed id semper. Aenean euismod elementum nisi quis. Mauris a diam maecenas sed enim. Amet commodo nulla facilisi nullam vehicula ipsum a. Morbi tristique senectus et netus et. Lobortis feugiat vivamus at augue eget arcu. Amet aliquam id diam maecenas.</p>
-                    <div class="text-box mb-5">
-                        <ul class="list-unstyled li-space-lg">
-                            <li class="d-flex">
-                                <i class="fas fa-square"></i>
-                                <div class="flex-grow-1"><strong>In dictum non</strong> lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua senectus et netus et malesuada fames malesuada nunc</div>
-                            </li>
-                            <li class="d-flex">
-                                <i class="fas fa-square"></i>
-                                <div class="flex-grow-1"><strong>Consectetur a erat</strong> malesuada nunc vel risus commodo. Eget egestas purus viverra accumsan in nisl nisi. Pellentesque elit ullamcorper dignissim cras tincidunt lobortis et leo duis ut elementum nisi</div>
-                            </li>
-                            <li class="d-flex">
-                                <i class="fas fa-square"></i>
-                                <div class="flex-grow-1"><strong>Nam et tortor</strong> aenean euismod elementum nisi quis. Mauris a diam maecenas sed enim. Amet commodo nulla facilisi nullam vehicula ipsum a. Morbi tristique senectus et netus et. Loborti elementum nisi quis</div>
-                            </li>
-                            <li class="d-flex">
-                                <i class="fas fa-square"></i>
-                                <div class="flex-grow-1"><strong>Consequat id porta</strong> diam maecenas ultricies mi eget. Nisl purus in mollis nunc sed id semper risus. In dictum non consectetur a erat nam. Et tortor consequat id porta nibh venenatis rhoncus</div>
-                            </li>
-                            <li class="d-flex">
-                                <i class="fas fa-square"></i>
-                                <div class="flex-grow-1"><strong>Nibh venenatis</strong> malesuada nunc vel risus commodo. Eget egestas purus viverra accumsan in nisl nisi. Pellentesque elit ullamcorper dignissim cras tincidunt lobortis. Et leo duis ut diam qua</div>
-                            </li>
-                        </ul>
-                    </div> <!-- end of text-box -->
+                    <p>For the purpose of the relevant data protection legislation, the “controller” (or”data controller”) is DA Ltd at Delhi Court, Delhi Lane, St Mahatma Gandhi road, Delhi NCR. We can be contacted at contact@pfaarchitecture.com or 01481 712633. </p>
 
-                    <h2 class="mb-3">4. Amet commodo nulla facilisi nullam</h2>
-                    <p class="mb-4">Vehicula ipsum a. Morbi tristique senectus et netus et. Lobortis feugiat vivamus at augue eget arcu. Amet aliquam id diam maecenas ultricies mi eget. Nisl purus in mollis nunc sed id semper risus. In dictum non consectetur a erat nam. Et tortor consequat id porta nibh venenatis. Rhoncus mattis rhoncus urna neque viverra.</p>
-                    <ul class="list-unstyled li-space-lg mb-5">
-                        <li class="d-flex">
-                            <strong>1.</strong>
-                            <div class="flex-grow-1"><strong>Malesuada nunc</strong> lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Senectus et netus et malesuada fames malesuada nunc vel risus</div>
-                        </li>
-                        <li class="d-flex">
-                            <strong>2.</strong>
-                            <div class="flex-grow-1"><strong>Vel risus commodo</strong> pellentesque elit ullamcorper dignissim cras tincidunt lobortis. Et leo duis ut diam quam nulla. Purus in mollis nunc sed id semper. Aenean euismod elementum nisi quis mauris a diam</div>
-                        </li>
-                        <li class="d-flex">
-                            <strong>3.</strong>
-                            <div class="flex-grow-1"><strong>Eget egestas purus</strong> lobortis feugiat vivamus at augue eget arcu. Amet aliquam id diam maecenas ultricies mi eget. Nisl purus in mollis nunc sed id semper risus. In dictum non consectetur a erat nam et tortor</div>
-                        </li>
-                        <li class="d-flex">
-                            <strong>4.</strong>
-                            <div class="flex-grow-1"><strong>Et leo duis ut diam</strong> malesuada nunc vel risus commodo. Eget egestas purus viverra accumsan in nisl nisi. Pellentesque elit ullamcorper dignissim cras tincidunt lobortis. Et leo duis ut diam quam nulla a nunc vel risus</div>
-                        </li>
-                        <li class="d-flex">
-                            <strong>5.</strong>
-                            <div class="flex-grow-1"><strong>Quam nulla</strong> nulla facilisi nullam vehicula ipsum a. Morbi tristique senectus et netus et. Lobortis feugiat vivamus at augue eget arcu. Amet aliquam id diam maecenas ultricies mi eget nisl purus elementum nisi quis</div>
-                        </li>
-                    </ul>
+                    <p>DA Ltd complies with its obligations under The Data Protection (Bailiwick of Guernsey) Law, 2017 by keeping personal data up to date; by storing and destroying it securely; by not collecting or retaining excessive amounts of data; by protecting personal data from loss, misuse, unauthorized access and disclosure and by ensuring that appropriate technical measures are in place to protect personal data.</p>
 
-                    <div class="text-box mb-5">
-                        <h3>Et tortor consequat id porta nibh venenatis</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Senectus et netus et malesuada fames. Malesuada nunc vel risus commodo. Eget egestas purus viverra accumsan in nisl nisi. Pellentesque elit ullamcorper dignissim cras tincidunt lobortis. Et leo duis ut diam quam nulla. Purus in mollis nunc sed id semper. Aenean euismod elementum</p>
-                    </div> <!-- end of text-box -->
-                    <p class="mb-5">Mauris a diam maecenas sed enim. Amet commodo nulla facilisi nullam vehicula ipsum a. Morbi tristique senectus et netus et. Lobortis feugiat vivamus at augue eget arcu. Amet aliquam id diam maecenas ultricies mi eget. Nisl purus in mollis nunc sed id semper risus. In dictum non consectetur a erat nam. Et tortor consequat.</p>
+                    Types of Personal Data we collect
 
-                    <a class="btn-solid-reg mb-5" href="./index.php#contact">Get Interact</a>
-                </div> <!-- end of col -->
+                    As a client of PF+A Ltd, we collect information that helps us identify you and meet the obligations of our business engagement with you. Where you are a client, the personal information we will collect includes:
+
+                    Your business names, personal names, addresses, telephone numbers, email addresses, bank details, etc.
+                    We do not collect any Special Category Data about you (this includes race, religion, political interests, sexual interests, information about your health). Nor do we collect any information about criminal convictions and offenses.
+
+                    <h3 class="my-3">Types of Personal Data we collect</h3>
+                    <div class='ps-4 mb-5'>
+                        <p class="mb-3 d-flex flex-row">
+                            <span class='fs-5 fw-bolder me-2'>=></span>
+                            <span>As a client of DA Ltd, we collect information that helps us identify you and meet the obligations of our business engagement with you. Where you are a client, the personal information we will collect includes:</span>
+                        </p>
+                        <p class="mb-3 d-flex flex-row">
+                            <span class='fs-5 fw-bolder me-2'>=></span>
+                            <span>Your business names, personal names, addresses, telephone numbers, email addresses, bank details, etc.</span>
+                        </p>
+                        <p class="mb-3 d-flex flex-row">
+                            <span class='fs-5 fw-bolder me-2'>=></span>
+                            <span> We do not collect any Special Category Data about you (this includes race, religion, political interests, sexual interests, information about your health). Nor do we collect any information about criminal convictions and offenses.</span>
+                        </p>
+                    </div>
+
+                    <h3 class="my-3">Purpose or processing your Personal Data</h3>
+                    <div class='ps-4 mb-5'>
+                        <p class="mb-3 d-flex flex-row">
+                            <span class='fs-5 fw-bolder me-2'>=></span>
+                            <span>We shall not share your personal date with any third party for marketing purposes without your express consent. Where we share your information, we require those receiving it, to put in place appropriate security and confidentiality measures to protect it.</span>
+                        </p>
+                        <p class="mb-3 d-flex flex-row">
+                            <span class='fs-5 fw-bolder me-2'>=></span>
+                            <span>We shall use your personal data for the following purposes:</span>
+                        </p>
+                        <p class="mb-3 d-flex flex-row">
+                            <span class='fs-5 fw-bolder me-2'>=></span>
+                            <span>Maintenance of contract and communication with you during your dealings with PF+A Ltd.</span>
+                        </p>
+                        <p class="mb-3 d-flex flex-row">
+                            <span class='fs-5 fw-bolder me-2'>=></span>
+                            <span>Maintenance of our own records and accounts.</span>
+                        </p>
+                        <p class="mb-3 d-flex flex-row">
+                            <span class='fs-5 fw-bolder me-2'>=></span>
+                            <span> The purchase of good/services/materials from you.</span>
+                        </p>
+                        <p class="mb-3 d-flex flex-row">
+                            <span class='fs-5 fw-bolder me-2'>=></span>
+                            <span>The Development and Planning Authority (“DPA”) for the submission of pre-application, planning and building control application.</span>
+                        </p>
+                        <p class="mb-3 d-flex flex-row">
+                            <span class='fs-5 fw-bolder me-2'>=></span>
+                            <span>Third party agents/suppliers or contractors, in connection with the processing of your personal information for the purposes described in this Policy. This may include, but is not limited to, disclosures to our own advisors such as auditors and accountants and any external legal advisors we may instruct.</span>
+                        </p>
+                        <p class="mb-3 d-flex flex-row">
+                            <span class='fs-5 fw-bolder me-2'>=></span>
+                            <span>To inform you of news, events or activities.</span>
+                        </p>
+                    </div>
+
+                    <h3 class="my-3"> Your rights and your Personal Data</h3>
+                    <div class='ps-4 mb-5'>
+                        <p class="mb-3 d-flex flex-row">
+                            <span class='fs-5 fw-bolder me-2'>=></span>
+                            <span>Under The Data Protection (Bailiwick of Guernsey) Law, 2017 you may request details of personal information which we hold about you or request that we update the details that we hold about you.</span>
+                        </p>
+                        <p class="mb-3 d-flex flex-row">
+                            <span class='fs-5 fw-bolder me-2'>=></span>
+                            <span>Under certain circumstances, you have the following rights:</span>
+                        </p>
+                        <p class="mb-3 d-flex flex-row">
+                            <span class='fs-5 fw-bolder me-2'>=></span>
+                            <span>to request that we provide you with a copy of the information we hold about you (“Right of access”)</span>
+                        </p>
+                        <p class="mb-3 d-flex flex-row">
+                            <span class='fs-5 fw-bolder me-2'>=></span>
+                            <span>to restrict the level of processing we carry out with your information (“Right to restriction of Processing”),</span>
+                        </p>
+                        <p class="mb-3 d-flex flex-row">
+                            <span class='fs-5 fw-bolder me-2'>=></span>
+                            <span>to obtain from us all personal data we hold about you in a structured, machine readable form, and have this information transmitted to another organization (“Right to data portability”),</span>
+                        </p>
+                        <p class="mb-3 d-flex flex-row">
+                            <span class='fs-5 fw-bolder me-2'>=></span>
+                            <span>to object to our processing your information in certain ways (“Right to Object”); and.</span>
+                        </p>
+                    </div>
+
+
+
+
+
+
+
+
+
+                </div>
             </div> <!-- end of row -->
         </div> <!-- end of container -->
     </div> <!-- end of ex-basic-1 -->
@@ -239,7 +248,7 @@
                     </ul>
                 </div>
                 <div class="col-lg-6">
-                    <p class="p-small statement" style="color:#fff">Copyright © Some name</p>
+                    <p class="p-small statement" style="color:#fff">Copyright © Dream Studio 2023</p>
                 </div>
             </div>
         </div>

@@ -1,17 +1,3 @@
-<style>
-    .error {
-        color: #ff0000 !important;
-        position: relative !important;
-        line-height: 1 !important;
-        font-size: 1rem !important;
-        width: 100% !important;
-    }
-
-    .form-control.error {
-        border: 1px solid #ff0000;
-        color: #5a5c69 !important;
-    }
-</style>
 <?php
 $clientId = $_GET['clientId'];
 $qry = $con->query("SELECT * FROM  clients WHERE client_id='$clientId';");
@@ -78,52 +64,3 @@ while ($row = $qry->fetch_assoc()) { ?>
         </div>
     </div>
 <?php } ?>
-<script>
-    $(document).ready(function() {
-        $("#edit_client_form").validate({
-            // Define validation rules
-            rules: {
-                client_first_name: "required",
-                client_last_name: "required",
-                client_email: "required",
-                client_first_name: {
-                    required: true,
-                },
-                client_last_name: {
-                    required: true,
-                },
-                client_email: {
-                    required: true,
-                    email: true,
-                },
-            },
-            // Specify validation error messages
-            messages: {
-                client_first_name: {
-                    required: "Please provide a valid First Name",
-                },
-                client_last_name: {
-                    required: "Please provide a valid Last Name",
-                },
-                client_email: "Please Provide valid Email",
-            },
-            submitHandler: function(form) {
-                $.ajax({
-                    url: './php/actions.php?action=edit_client',
-                    data: $("#edit_client_form").serialize(),
-                    type: 'POST',
-                    success: function(resp) {
-                        console.log(resp);
-                        if (resp == 1) {
-                            setTimeout(() => {
-                                window.location = './index.php?page=client-dashboard';
-                            }, 1000);
-                        } else {
-                            console.log(resp);
-                        }
-                    }
-                });
-            }
-        });
-    });
-</script>

@@ -1,17 +1,4 @@
-<style>
-    .error {
-        color: #ff0000 !important;
-        position: relative !important;
-        line-height: 1 !important;
-        font-size: 1rem !important;
-        width: 100% !important;
-    }
 
-    .form-control.error {
-        border: 1px solid #ff0000;
-        color: #5a5c69 !important;
-    }
-</style>
 <div class="container-fluid">
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">New User</h1>
@@ -103,81 +90,6 @@
             } else {
                 $("#showPassword").hide();
                 $("#hidePassword").hide();
-            }
-        });
-
-
-        $("#new_user_form").validate({
-            // Define validation rules
-            rules: {
-                user_email: "required",
-                user_password: "required",
-                user_confirm_password: "required",
-                user_access_type: "required",
-                user_email: {
-                    required: true,
-                },
-                user_password: {
-                    required: true,
-                    minlength: 6,
-                    maxlength: 16,
-                },
-                user_confirm_password: {
-                    required: true,
-                    minlength: 6,
-                    maxlength: 16,
-                    equalTo: '#user_password'
-                },
-                user_access_type: {
-                    required: true
-                },
-            },
-            // Specify validation error messages
-            messages: {
-                user_email: {
-                    required: "Please Select a valid Name",
-                },
-                user_password: {
-                    required: "Please provide a valid password",
-                    minlength: 'Password must be at least 6 characters long',
-                    maxlength: 'Password must not be more than 16 characters long'
-                },
-                user_confirm_password: {
-                    required: "Please provide a valid password",
-                    minlength: 'Password must be at least 6 characters long',
-                    maxlength: 'Password must not be more than 16 characters long',
-                    equalTo: 'Passwords do not match'
-                },
-                user_access_type: "Please Select a valid Access Type",
-            },
-            submitHandler: function(form) {
-                $.ajax({
-                    url: './php/actions.php?action=save_user',
-                    data: $("#new_user_form").serialize(),
-                    type: 'POST',
-                    success: function(res) {
-                        res = JSON.parse(res);
-                        if (res.status == 200) {
-                            $('#new_user_form').append(
-                                `<div class="alert alert-success  showMessage" role="alert" id="errorMsg">
-                                    <span>${res.message}</span>
-                                    </div>`
-                            );
-                            setTimeout(function() {
-                                location.reload();
-                            }, 3000);
-                        } else {
-                            $('#new_user_form').append(
-                                `<div class="alert alert-danger  showMessage" role="alert" id="errorMsg">
-                                    <span>${res.message}</span>
-                                    </div>`
-                            );
-                            setTimeout(function() {
-                                $('.showMessage').hide();
-                            }, 3000);
-                        }
-                    }
-                });
             }
         });
     });

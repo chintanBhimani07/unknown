@@ -1,11 +1,7 @@
 <div id="wrapper">
-    <!-- sidebar -->
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="main_dashboard">
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion sidebar-scroll" id="main_dashboard" style="height: 100vh !important;overflow: auto !important;width: 17vw !important;">
         <a class="sidebar-brand d-flex align-items-center justify-content-center" href="./index.php?page=home">
-            <div class="sidebar-brand-icon rotate-n-15">
-                <i class="fa-solid fa-building-columns"></i>
-            </div>
-            <div class="sidebar-brand-text mx-3">Company</div>
+            <div class="sidebar-brand-text mx-3">DS Architecture</div>
         </a>
         <hr class="sidebar-divider my-0">
         <li class="nav-item active">
@@ -42,7 +38,6 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#leave_type" aria-expanded="true" aria-controls="project_controls">
                     <i class="fa-solid fa-t"></i>
-                    <!-- <i class="fa-solid fa-person-walking-arrow-right"></i> -->
                     <span>Leave Types</span>
                 </a>
                 <div id="leave_type" class="collapse" aria-labelledby="project_lable" data-parent="#main_dashboard">
@@ -76,6 +71,12 @@
                         <a class="collapse-item" href="./index.php?page=client-new">New Client</a>
                     </div>
                 </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="./index.php?page=lead-dashboard">
+                    <i class="fa-solid fa-briefcase"></i>
+                    <span>Lead Entry</span>
+                </a>
             </li>
             <hr class="sidebar-divider">
             <li class="nav-item">
@@ -167,17 +168,11 @@
                 </div>
             </div>
         </li>
-        <hr class="sidebar-divider d-none d-md-block">
-
-        <!-- Sidebar Toggler (Sidebar) -->
-        <div class="text-center d-none d-md-inline">
-            <button class="rounded-circle border-0" id="sidebarToggle"></button>
-        </div>
     </ul>
 
     <div id="content-wrapper" class="d-flex flex-column">
         <div id="content">
-            <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+            <nav class="navbar navbar-expand navbar-light bg-white topbar mb-2 static-top shadow">
                 <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                     <i class="fa fa-bars"></i>
                 </button>
@@ -190,14 +185,13 @@
                             $userEmail = $_SESSION['login_user_email'];
                             $qry = $con->query("SELECT emp_profile_pic FROM employees WHERE emp_email='$userEmail'");
                             while ($row = $qry->fetch_assoc()) { ?>
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">
+                                <span class="mr-3" style="color:#000;font-size:14px">
                                     <?php echo $_SESSION['login_user_first_name'] . " " . $_SESSION['login_user_last_name'] ?>
                                 </span>
-                                <img class="img-profile rounded-circle" src="./assets/uploads/<?php echo $row['emp_profile_pic']; ?>">
+                                <img class="img-profile rounded-circle" style="border: 0.5px solid #4d72de;height:3rem;width:3rem;" src="./assets/uploads/<?php echo $row['emp_profile_pic']; ?>">
                             <?php } ?>
                         </a>
-                        <!-- Dropdown - User Information -->
-                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in dropdown-color" aria-labelledby="userDropdown">
                             <h6 class="text-center font-weight-bolder">
                                 <?php if ($_SESSION['login_user_access_type'] == 1) {
                                     echo 'Administrator';

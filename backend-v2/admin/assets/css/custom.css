@@ -1,0 +1,62 @@
+.scroll-component {
+  height: 80vh !important;
+  overflow: auto !important;
+  padding: inherit !important;
+}
+
+.scroll-component::-webkit-scrollbar {
+  width: 8px !important;
+}
+
+.scroll-component::-webkit-scrollbar-track {
+  background-color: #cbcbcb69 !important;
+}
+
+.scroll-component::-webkit-scrollbar-thumb {
+  background: #4e73df !important;
+  border-radius: 25px !important;
+}
+
+#page-top::-webkit-scrollbar {
+  width: 8px !important;
+}
+
+#page-top::-webkit-scrollbar-track {
+  background-color: #cbcbcb69 !important;
+}
+
+#page-top::-webkit-scrollbar-thumb {
+  background: #4e73df !important;
+  border-radius: 25px !important;
+}
+
+.error {
+  text-align: start;
+  color: #ff0000 !important;
+  position: relative !important;
+  line-height: 1 !important;
+  font-size: 1rem !important;
+  width: 100% !important;
+}
+
+.form-control.error {
+  border: 1px solid #ff0000;
+  color: #5a5c69 !important;
+}
+
+/* .table-row {
+  padding: 0.6rem !important;
+} */
+
+.dropdown-color {
+  background-color: #cfdbff;
+}
+
+.sidebar-scroll::-webkit-scrollbar {
+  display: none !important;
+}
+
+
+/* #form_body{
+  padding: 0 1.25rem !important;
+} */

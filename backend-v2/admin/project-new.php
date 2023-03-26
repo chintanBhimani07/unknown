@@ -1,17 +1,3 @@
-<style>
-    .error {
-        color: #ff0000 !important;
-        position: relative !important;
-        line-height: 1 !important;
-        font-size: 1rem !important;
-        width: 100% !important;
-    }
-
-    .form-control.error {
-        border: 1px solid #ff0000;
-        color: #5a5c69 !important;
-    }
-</style>
 
 <div class="container-fluid">
 
@@ -20,7 +6,7 @@
         <a href="./index.php?page=project-dashboard" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-list fa-sm text-white mr-2"></i>Projects</a>
     </div>
 
-    <div class="row add-employee-form">
+    <div class="row add-employee-form scroll-component">
         <div class="col-xl-12 col-lg-7">
             <div class="card shadow mb-4">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -139,77 +125,3 @@
         </div>
     </div>
 </div>
-
-<script>
-    $(document).ready(function() {
-        $("#new_project_form").validate({
-            // Define validation rules
-            rules: {
-                project_name: "required",
-                project_status: "required",
-                project_code: "required",
-                client_id: "required",
-                start_date: "required",
-                hod_id: "required",
-                nature_of_project: "required",
-                project_location: "required",
-                project_name: {
-                    required: true
-                },
-                project_status: {
-                    required: true
-                },
-                project_code: {
-                    required: true
-                },
-                client_id: {
-                    required: true
-                },
-                start_date: {
-                    required: true
-                },
-                hod_id: {
-                    required: true,
-                },
-                nature_of_project: {
-                    required: true,
-                },
-                project_location: {
-                    required: true
-                },
-            },
-            // Specify validation error messages
-            messages: {
-                project_name: "Please provide a valid name",
-                project_status: "Please select a valid status",
-                project_code: "Please provide a valid code",
-                client_id: "Please select a valid client",
-                start_date: "Please select a valid date",
-                hod_id: {
-                    required: "Please select a valid hod",
-                },
-                nature_of_project: {
-                    required: "Please select valid type",
-                },
-                project_location: "Please provide a valid location",
-            },
-            submitHandler: function(form) {
-                $.ajax({
-                    url: './php/actions.php?action=save_project',
-                    data: $("#new_project_form").serialize(),
-                    type: 'POST',
-                    success: function(resp) {
-                        console.log(resp);
-                        if (resp == 1) {
-                            setTimeout(() => {
-                                location.reload();
-                            }, 1000);
-                        } else {
-                            console.log(resp);
-                        }
-                    }
-                });
-            }
-        });
-    });
-</script>

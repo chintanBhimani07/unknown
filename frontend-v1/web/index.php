@@ -31,7 +31,7 @@
 </head>
 
 <body data-bs-spy="scroll" data-bs-target="#navbarExample">
-    <nav id="navbarExample" class="navbar navbar-expand-lg fixed-top navbar-light" aria-label="Main navigation" style="background:#fff0f0;">
+    <nav id="navbarExample" class="navbar navbar-expand-lg fixed-top navbar-light" aria-label="Main navigation" style="background:#f5eedcbf;">
         <div class="container">
             <a class="navbar-brand logo-image" href="index.html"><img src="images/favicon-v2.png" alt="alternative"></a>
             <button class="navbar-toggler p-0 border-0" type="button" id="navbarSideCollapse" aria-label="Toggle navigation">
@@ -554,7 +554,7 @@
                     </ul>
                 </div>
                 <div class="col-lg-6">
-                    <p class="p-small statement" style="color:#fff">Copyright © Some name</p>
+                    <p class="p-small statement" style="color:#fff">Copyright © Dream Studio 2023</p>
                 </div>
             </div>
         </div>
