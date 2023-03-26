@@ -294,7 +294,6 @@ class Controller
                 $fname = strtotime(date('y-m-d H:i')) . '_' . $_FILES['emp_profile_pic']['name'];
                 if (file_exists('../assets/uploads/' . $oldFile)) {
                     unlink('../assets/uploads/' . $oldFile);
-                } else {
                 }
                 $move = move_uploaded_file($_FILES['emp_profile_pic']['tmp_name'], '../assets/uploads/' . $fname);
                 $emp_data .= ", emp_profile_pic='$fname'";
@@ -894,42 +893,36 @@ class Controller
         if ($para == 'insert') {
             $checkExpExists = $this->db->query("SELECT * FROM expenses WHERE exp_name ='$exp_name' AND exp_amount =$exp_amount ")->num_rows;
             if ($checkExpExists == 0) {
-                if (isset($_FILES['exp_bill_photo']) && $_FILES['exp_bill_photo']['tmp_name'] != '') {
-                    return 1;
-                    // $fname = strtotime(date('y-m-d H:i')) . '_' . $_FILES['exp_bill_photo']['name'];
-                    // $exp_data .= ", exp_bill_photo='$fname'";
-                    // $move = move_uploaded_file($_FILES['exp_bill_photo']['tmp_name'], '../assets/Expenses/' . $fname);
-                } else {
-                    $fname = 'default_user.jpg';
-                }
                 $addExp = $this->db->query("INSERT INTO expenses SET $exp_data");
                 if ($addExp) {
-                    return $expId;
+                    return array(
+                        "status" => 200,
+                        "message" => 'Expense Added Successfully.',
+                        'id' => $expId
+                    );
                 } else {
-                    return $addExp;
+                    $this->arr['status'] = 500;
+                    $this->arr['message'] = 'Something went wrong,please try again later.';
+                    return $this->arr;
                 }
             } else {
-                return 2;
+                $this->arr['status'] = 400;
+                $this->arr['message'] = 'Expense Already Exists.';
+                return $this->arr;
             }
         }
-
         if ($para == 'update') {
-            if (isset($_FILES['exp_bill_photo']) && $_FILES['exp_bill_photo']['tmp_name'] != '') {
-                $fname = strtotime(date('y-m-d H:i')) . '_' . $_FILES['exp_bill_photo']['name'];
-                if (file_exists('../assets/Expenses/' . $oldFile)) {
-                    unlink('../assets/Expenses/' . $oldFile);
-                }
-                $move = move_uploaded_file($_FILES['exp_bill_photo']['tmp_name'], '../assets/Expenses/' . $fname);
-                $exp_data .= ", exp_bill_photo='$fname'";
-            } else {
-                $fname = 'default_user.jpg';
-            }
-            // $updateEmp = $this->db->query("UPDATE employees SET emp_first_name='$emp_first_name', emp_last_name='$emp_last_name', emp_description='$emp_description', emp_gender='$emp_gender', emp_dob='$emp_dob', emp_mob=$emp_mob, emp_email='$emp_email', emp_address='$emp_address', emp_department='$emp_department', emp_designation='$emp_designation', emp_hod_name='$emp_hod_name', emp_joining_date='$emp_joining_date', emp_confirmation_date='$emp_confirmation_date', emp_leaving_date='$emp_leaving_date', emp_working_hours='$emp_working_hours', emp_profile_pic='$fname' WHERE emp_id='$emp_id'");
             $updateExp = $this->db->query("UPDATE expenses SET $exp_data WHERE exp_id='$exp_id'");
             if ($updateExp) {
-                return $updateExp;
+                return array(
+                    "status" => 200,
+                    "message" => 'Expense Update Successfully.',
+                    'id' => $exp_id
+                );
             } else {
-                return 2;
+                $this->arr['status'] = 500;
+                $this->arr['message'] = 'Something went wrong,please try again later.';
+                return $this->arr;
             }
         }
     }
@@ -942,12 +935,18 @@ class Controller
             $move = move_uploaded_file($_FILES['exp_bill_photo']['tmp_name'], '../assets/expenses/' . $fname);
             $updateExp = $this->db->query("UPDATE expenses SET exp_bill_photo='$fname' WHERE exp_id='$exp_id'");
             if ($updateExp) {
-                return 1;
+                $this->arr['status'] = 200;
+                $this->arr['message'] = 'Expense Bill Upload Successfully.';
+                return $this->arr;
             } else {
-                return 2;
+                $this->arr['status'] = 500;
+                $this->arr['message'] = 'Something went wrong,please try again later.';
+                return $this->arr;
             }
-        } else {
-            return 2;
+        }else{
+            $this->arr['status'] = 400;
+            $this->arr['message'] = 'Image not set.';
+            return $this->arr;
         }
     }
 
@@ -957,18 +956,21 @@ class Controller
         $deletePic = $this->db->query("SELECT exp_bill_photo FROM expenses WHERE exp_id = '$exp_id'");
         while ($row = $deletePic->fetch_assoc()) {
             $fileName = $row['exp_bill_photo'];
-            if (file_exists('../assets/Expenses/' . $fileName)) {
-                unlink('../assets/Expenses/' . $fileName);
+            if (file_exists('../assets/expenses/' . $fileName)) {
+                unlink('../assets/expenses/' . $fileName);
             }
             $query = $this->db->query("DELETE FROM expenses where exp_id ='$exp_id'");
             if ($query) {
-                return 1;
+                $this->arr['status'] = 200;
+                $this->arr['message'] = 'Expense Delete Successfully.';
+                return $this->arr;
             } else {
-                return 2;
+                $this->arr['status'] = 500;
+                $this->arr['message'] = 'Something went wrong,please try again later.';
+                return $this->arr;
             }
         }
     }
-
 
 
     // lead Management
@@ -977,15 +979,17 @@ class Controller
         extract($_POST);
         $qry = $this->db->query("UPDATE lead SET lead_status=$status WHERE lead_id='$leadId'");
         if ($qry) {
-            return array(
-                'status' => 200,
-                'message' => 'Response Submitted Successfully',
-            );
+            $this->arr['status'] = 200;
+            if ($status == 1) {
+                $this->arr['message'] = 'Lead Approved Successfully.';
+            } else {
+                $this->arr['message'] = 'Lead Rejected Successfully.';
+            }
+            return $this->arr;
         } else {
-            return array(
-                'status' => 400,
-                'message' => 'Something went wrong, please try again later.',
-            );
+            $this->arr['status'] = 500;
+            $this->arr['message'] = 'Something went wrong, please try again later.';
+            return $this->arr;
         }
     }
 }

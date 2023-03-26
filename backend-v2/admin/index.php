@@ -7,7 +7,7 @@ if (!isset($_SESSION['login_user_id'])) {
 }
 
 $page = (isset($_GET['page']) ? $_GET['page'] : 'home');
-$_SESSION['title'] = $page;
+$_SESSION['title'] = 'home';
 
 include './head.components.php';
 include './layout-top.components.php';

@@ -3,82 +3,82 @@
         <h1 class="h3 mb-0 text-gray-800">All Expenses</h1>
         <a href="./index.php?page=expenses-new" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white mr-2"></i>Add Expenses</a>
     </div>
-    <div class="row">
-        <div class="col-xl-6 col-md-6 mb-4">
-            <div class="card border-left-primary shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                Total Amount Of Expenses</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?php
-                                                                                echo $con->query("SELECT * FROM expenses;")->num_rows;
-                                                                                ?></div>
+    <div class="scroll-component">
+        <div class="row">
+            <div class="col-xl-6 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    Total Amount Of Expenses</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800"><?php
+                                                                                    echo $con->query("SELECT * FROM expenses;")->num_rows;
+                                                                                    ?></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-md-6 mb-4">
+                <div class="card border-left-success shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                    Conformed</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800"><?php
+                                                                                    // echo $con->query("SELECT * FROM expenses WHERE emp_confirmation_date <> '0000-00-00';")->num_rows . ' ' . 'Expenses';
+                                                                                    ?></div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-xl-6 col-md-6 mb-4">
-            <div class="card border-left-success shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                Conformed</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?php
-                                                                                // echo $con->query("SELECT * FROM expenses WHERE emp_confirmation_date <> '0000-00-00';")->num_rows . ' ' . 'Expenses';
-                                                                                ?></div>
-                        </div>
+        <div class="row">
+            <div class="col-xl-12 col-lg-7">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Employee List</h6>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <div class="row">
-        <div class="col-xl-12 col-lg-7">
-            <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Employee List</h6>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                            <thead>
-                                <tr>
-                                    <th>Sr No.</th>
-                                    <th>Exp. Name</th>
-                                    <th>Exp. Amount</th>
-                                    <th>Exp. Date</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                $i = 1;
-                                $qry = $con->query("SELECT * FROM  expenses;");
-                                while ($row = $qry->fetch_assoc()) { ?>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
                                     <tr>
-                                        <th scope="row"><?php echo $i++ ?></th>
-                                        <td><?php echo $row['exp_name'] ?></td>
-                                        <td><?php echo $row['exp_amount'] ?> <i class="fa-solid fa-indian-rupee-sign"></i></td>
-                                        <td><?php echo $row['exp_date'] ?></td>
-                                        <td class="d-flex align-items-center justify-content-center">
-                                            <div class="dropdown no-arrow">
-                                                <a class="nav-link dropdown-toggle text-dark" href="#" id="productDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa-solid fa-ellipsis-vertical"></i></a>
-                                                <div class="dropdown-menu dropdown-menu-right shadow animated-grow-in" aria-labelledby="productDropdown">
-                                                    <a type="button" class="dropdown-item" href="./index.php?page=expenses-edit&expId=<?php echo $row['exp_id'] ?>">Edit</a>
-                                                    <div class="dropdown-divider"></div>
-                                                    <a type="button" class="dropdown-item" id="deleteExp" href="#" data-id="<?php echo $row['exp_id'] ?>">Delete</a>
-                                                </div>
-                                            </div>
-                                        </td>
+                                        <th>Sr No.</th>
+                                        <th>Exp. Name</th>
+                                        <th>Exp. Amount</th>
+                                        <th>Exp. Date</th>
+                                        <th>Action</th>
                                     </tr>
-                                <?php } ?>
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $i = 1;
+                                    $qry = $con->query("SELECT * FROM  expenses;");
+                                    while ($row = $qry->fetch_assoc()) { ?>
+                                        <tr>
+                                            <th scope="row"><?php echo $i++ ?></th>
+                                            <td><?php echo $row['exp_name'] ?></td>
+                                            <td><?php echo $row['exp_amount'] ?> <i class="fa-solid fa-indian-rupee-sign"></i></td>
+                                            <td><?php echo $row['exp_date'] ?></td>
+                                            <td class="d-flex align-items-center justify-content-center">
+                                                <div class="dropdown no-arrow">
+                                                    <a class="nav-link dropdown-toggle text-dark" href="#" id="productDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa-solid fa-ellipsis-vertical"></i></a>
+                                                    <div class="dropdown-menu dropdown-menu-right shadow animated-grow-in dropdown-color" aria-labelledby="productDropdown">
+                                                        <a type="button" class="dropdown-item" href="./index.php?page=expenses-edit&expId=<?php echo $row['exp_id'] ?>">Edit</a>
+                                                        <div class="dropdown-divider"></div>
+                                                        <a type="button" class="dropdown-item" id="deleteExp" href="#" data-id="<?php echo $row['exp_id'] ?>">Delete</a>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    <?php } ?>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -130,18 +130,22 @@
                 data: {
                     exp_id: id
                 },
-                success: function(resp) {
-                    if (resp == 1) {
-                        setTimeout(function() {
+                success: function(res) {
+                    console.log(res);
+                    res = JSON.parse(res);
+                    if (res.status == 200) {
+                        toastr.success(res.message);
+                        setTimeout(() => {
                             location.reload();
-                        }, 1000);
+                        }, 3000);
                     } else {
-                        console.log(resp);
+                        toastr.error(res.message);
                     }
                 },
-                error: function(resp) {
-                    console.log(resp);
-                }
+                error: function(res) {
+                    res = JSON.parse(res);
+                    toastr.error(res.message);
+                },
             });
         });
     });

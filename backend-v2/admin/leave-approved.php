@@ -5,7 +5,7 @@ $userId = $_SESSION['login_user_id'];
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Approved Leaves</h1>
     </div>
-    <div class="row">
+    <div class="row scroll-component">
         <div class="col-xl-12 col-lg-7">
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
@@ -68,7 +68,7 @@ $userId = $_SESSION['login_user_id'];
                                         <td class="d-flex align-items-center justify-content-center">
                                             <div class="dropdown no-arrow">
                                                 <a class="nav-link dropdown-toggle text-dark" href="#" id="productDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa-solid fa-ellipsis-vertical"></i></a>
-                                                <div class="dropdown-menu dropdown-menu-right shadow animated-grow-in" aria-labelledby="productDropdown">
+                                                <div class="dropdown-menu dropdown-menu-right shadow animated-grow-in dropdown-color" aria-labelledby="productDropdown">
                                                     <a type="button" class="dropdown-item" href="./index.php?page=leave-viewer&leaveId=<?php echo $row['leave_id'] ?>">View</a>
                                                 </div>
                                             </div>

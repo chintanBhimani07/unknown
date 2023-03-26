@@ -7,8 +7,6 @@ $userId = $_SESSION['login_user_id'];
         <a href="./index.php?page=leave-new" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white mr-2"></i>Leave Application</a>
     </div>
     <div class="scroll-component">
-
-
         <div class="row">
             <div class="col-xl-3 col-md-6 mb-4">
                 <div class="card border-left-primary shadow h-100 py-2">
@@ -158,7 +156,7 @@ $userId = $_SESSION['login_user_id'];
                                             <td class="d-flex align-items-center justify-content-center">
                                                 <div class="dropdown no-arrow">
                                                     <a class="nav-link dropdown-toggle text-dark" href="#" id="productDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa-solid fa-ellipsis-vertical"></i></a>
-                                                    <div class="dropdown-menu dropdown-menu-right shadow animated-grow-in" aria-labelledby="productDropdown">
+                                                    <div class="dropdown-menu dropdown-menu-right shadow animated-grow-in dropdown-color" aria-labelledby="productDropdown">
                                                         <a type="button" class="dropdown-item" href="./index.php?page=leave-viewer&leaveId=<?php echo $row['leave_id'] ?>">View</a>
                                                     </div>
                                                 </div>

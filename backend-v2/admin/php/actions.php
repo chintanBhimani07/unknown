@@ -231,6 +231,7 @@ if ($action == 'save_exp') {
         echo json_encode($save_exp);
     }
 }
+
 if ($action == 'edit_exp') {
     $para = "update";
     $edit_exp = $task->exp_add($para);
@@ -238,6 +239,7 @@ if ($action == 'edit_exp') {
         echo json_encode($edit_exp);
     }
 }
+
 if ($action == 'delete_exp') {
     $para = "update";
     $delete_exp = $task->exp_delete();
@@ -252,6 +254,9 @@ if ($action == 'upload_exp_profile') {
     }
 }
 
+
+
+// Lead Action
 if ($action == 'lead_action') {
     $lead_action  = $task->lead_update();
     if ($lead_action) {

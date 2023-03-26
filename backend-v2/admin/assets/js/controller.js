@@ -3,7 +3,7 @@ function preview() {
 }
 
 // Employee Add Photo
-function uploadImg() {
+function uploadEmpImg() {
   if ($("#emp_profile_pic").val()) {
     let img = $("#emp_profile_pic").prop("files")[0];
     let empCode = $("#emp_code").val();
@@ -29,6 +29,35 @@ function uploadImg() {
         toastr.error(res.message);
       },
     });
+  }
+}
+
+function uploadExpImg(id) {
+  if ($("#exp_bill_photo").val()) {
+    let img = $("#exp_bill_photo").prop("files")[0];
+    var formData = new FormData();
+    formData.append("exp_bill_photo", img);
+    formData.append("exp_id", id);
+    $.ajax({
+      type: "POST",
+      url: "./php/actions.php?action=upload_exp_profile",
+      data: formData,
+      processData: false,
+      contentType: false,
+      success: function (res) {
+        res = JSON.parse(res);
+        if (res.status == 200) {
+          toastr.success(res.message);
+        } else {
+          toastr.error(res.message);
+        }
+      },
+      error: function (res) {
+        res = JSON.parse(res);
+        toastr.error(res.message);
+      },
+    });
+  } else {
   }
 }
 
@@ -300,7 +329,7 @@ $(document).ready(function () {
         success: function (res) {
           res = JSON.parse(res);
           if (res.status == 200) {
-            uploadImg();
+            uploadEmpImg();
             $("#new_employee_form")[0].reset();
             toastr.success(res.message);
           } else {
@@ -395,7 +424,7 @@ $(document).ready(function () {
         success: function (res) {
           res = JSON.parse(res);
           if (res.status == 200) {
-            uploadImg();
+            uploadEmpImg();
             toastr.success(res.message);
           } else {
             toastr.error(res.message);
@@ -1070,9 +1099,109 @@ $(document).ready(function () {
           res = JSON.parse(res);
           if (res.status == 200) {
             toastr.success(res.message);
-            setTimeout(()=>{
+            setTimeout(() => {
               location.reload();
-            },3000);
+            }, 3000);
+          } else {
+            toastr.error(res.message);
+          }
+        },
+        error: function (res) {
+          res = JSON.parse(res);
+          toastr.error(res.message);
+        },
+      });
+    },
+  });
+
+  // Expense Add
+  $("#new_exp_form").validate({
+    rules: {
+      exp_name: "required",
+      exp_amount: "required",
+      exp_date: "required",
+      exp_bill_photo: "required",
+      exp_name: {
+        required: true,
+      },
+      exp_amount: {
+        required: true,
+      },
+      exp_date: {
+        required: true,
+      },
+      exp_bill_photo: {
+        required: true,
+      },
+    },
+    messages: {
+      exp_name: "Please provide a valid name",
+      exp_amount: "Please provide a valid amount",
+      exp_date: "Please select a valid date",
+      exp_bill_photo: "Please select a valid photo",
+    },
+    submitHandler: function (form) {
+      $.ajax({
+        url: "./php/actions.php?action=save_exp",
+        data: $("#new_exp_form").serialize(),
+        type: "POST",
+        success: function (res) {
+          res = JSON.parse(res);
+          if (res.status == 200) {
+            uploadExpImg(res.id);
+            $("#new_exp_form")[0].reset();
+            toastr.success(res.message);
+          } else {
+            toastr.error(res.message);
+          }
+        },
+        error: function (res) {
+          res = JSON.parse(res);
+          toastr.error(res.message);
+        },
+      });
+    },
+  });
+
+  // Expense Update
+  $("#edit_exp_form").validate({
+    rules: {
+      exp_name: "required",
+      exp_amount: "required",
+      exp_date: "required",
+      exp_bill_photo: "required",
+      exp_name: {
+        required: true,
+      },
+      exp_amount: {
+        required: true,
+      },
+      exp_date: {
+        required: true,
+      },
+      exp_bill_photo: {
+        required: true,
+      },
+    },
+    messages: {
+      exp_name: "Please provide a valid name",
+      exp_amount: "Please provide a valid amount",
+      exp_date: "Please select a valid date",
+      exp_bill_photo: "Please select a valid photo",
+    },
+    submitHandler: function (form) {
+      $.ajax({
+        url: "./php/actions.php?action=edit_exp",
+        data: $("#edit_exp_form").serialize(),
+        type: "POST",
+        success: function (res) {
+          res = JSON.parse(res);
+          if (res.status == 200) {
+            uploadExpImg(res.id);
+            toastr.success(res.message);
+            setTimeout(() => {
+              location.reload();
+            }, 3000);
           } else {
             toastr.error(res.message);
           }

@@ -7,7 +7,7 @@ while ($row = $qry->fetch_assoc()) { ?>
             <h1 class="h3 mb-0 text-gray-800">Client Update</h1>
             <a href="./index.php?page=client-dashboard" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-list fa-sm text-white mr-2"></i>Client</a>
         </div>
-        <div class="row add-employee-form">
+        <div class="row add-employee-form scroll-component">
             <div class="col-xl-12 col-lg-7">
                 <div class="card shadow mb-4">
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
