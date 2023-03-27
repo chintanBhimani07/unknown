@@ -192,6 +192,7 @@ $(document).ready(function () {
         data: $("#reset_password").serialize(),
         type: "POST",
         success: function (res) {
+          console.log(res);
           res = JSON.parse(res);
           if (res.status == 200) {
             toastr.success(res.message);
