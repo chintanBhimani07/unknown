@@ -329,7 +329,7 @@
                     <div class="grid">
                         <div class="element-item design">
                             <a href="article.html">
-                                <img class="img-fluid" src="../images/architect.jpg" alt="alternative">
+                                <img class="img-fluid" src="../images/bunglow-3.jpg" alt="alternative">
                                 <div>
                                     <h1>1</h1>
                                 </div>
@@ -337,7 +337,7 @@
                         </div>
                         <div class="element-item development">
                             <a href="article.html">
-                                <img class="img-fluid" src="../images/architect.jpg" alt="alternative">
+                                <img class="img-fluid" src="../images/flat-5.jpg" alt="alternative">
                                 <div>
                                     <h1>2</h1>
                                 </div>
@@ -345,7 +345,7 @@
                         </div>
                         <div class="element-item design">
                             <a href="article.html">
-                                <img class="img-fluid" src="../images/architect.jpg" alt="alternative">
+                                <img class="img-fluid" src="../images/bunglow-2.jpg" alt="alternative">
                                 <div>
                                     <h1>3</h1>
                                 </div>
@@ -353,7 +353,7 @@
                         </div>
                         <div class="element-item design">
                             <a href="article.html">
-                                <img class="img-fluid" src="../images/architect.jpg" alt="alternative">
+                                <img class="img-fluid" src="../images/bunglow-1.jpg" alt="alternative">
                                 <div>
                                     <h1>4</h1>
                                 </div>
@@ -361,7 +361,7 @@
                         </div>
                         <div class="element-item development">
                             <a href="article.html">
-                                <img class="img-fluid" src="../images/architect.jpg" alt="alternative">
+                                <img class="img-fluid" src="../images/flat-3.jpg" alt="alternative">
                                 <div>
                                     <h1>5</h1>
                                 </div>
@@ -369,7 +369,7 @@
                         </div>
                         <div class="element-item marketing">
                             <a href="article.html">
-                                <img class="img-fluid" src="../images/architect.jpg" alt="alternative">
+                                <img class="img-fluid" src="../images/compnany-1.jpg" alt="alternative">
                                 <div>
                                     <h1>6</h1>
                                 </div>
@@ -377,7 +377,7 @@
                         </div>
                         <div class="element-item desing">
                             <a href="article.html">
-                                <img class="img-fluid" src="../images/architect.jpg" alt="alternative">
+                                <img class="img-fluid" src="../images/bunglow-4.jpg" alt="alternative">
                                 <div>
                                     <h1>7</h1>
                                 </div>
@@ -393,7 +393,7 @@
                         </div>
                         <div class="element-item design">
                             <a href="article.html">
-                                <img class="img-fluid" src="../images/architect.jpg" alt="alternative">
+                                <img class="img-fluid" src="../images/bunglow-5.jpg" alt="alternative">
                                 <div>
                                     <h1>9</h1>
                                 </div>
@@ -401,7 +401,7 @@
                         </div>
                         <div class="element-item development">
                             <a href="article.html">
-                                <img class="img-fluid" src="../images/architect.jpg" alt="alternative">
+                                <img class="img-fluid" src="../images/compnany-4.jpg" alt="alternative">
                                 <div>
                                     <h1>10</h1>
                                 </div>
@@ -409,7 +409,7 @@
                         </div>
                         <div class="element-item marketing">
                             <a href="article.html">
-                                <img class="img-fluid" src="../images/architect.jpg" alt="alternative">
+                                <img class="img-fluid" src="../images/company-2.jpg" alt="alternative">
                                 <div>
                                     <h1>11</h1>
                                 </div>
@@ -417,7 +417,7 @@
                         </div>
                         <div class="element-item development">
                             <a href="article.html">
-                                <img class="img-fluid" src="../images/architect.jpg" alt="alternative">
+                                <img class="img-fluid" src="../images/flat-2.jpg" alt="alternative">
                                 <div>
                                     <h1>12</h1>
                                 </div>
@@ -425,7 +425,7 @@
                         </div>
                         <div class="element-item development">
                             <a href="article.html">
-                                <img class="img-fluid" src="../images/architect.jpg" alt="alternative">
+                                <img class="img-fluid" src="../images/flat-1.jpg" alt="alternative">
                                 <div>
                                     <h1>13</h1>
                                 </div>
@@ -441,7 +441,7 @@
                         </div>
                         <div class="element-item marketing">
                             <a href="article.html">
-                                <img class="img-fluid" src="../images/architect.jpg" alt="alternative">
+                                <img class="img-fluid" src="../images/company-3.jpg" alt="alternative">
                                 <div>
                                     <h1>15</h1>
                                 </div>
