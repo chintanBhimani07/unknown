@@ -57,7 +57,7 @@ class Controller
 
     private function passwordGenerator()
     {
-        $content = "abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ0123456789@#$";
+        $content = "abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ0123456789@";
         $pass = array();
         $contentLength = strlen($content) - 1;
         for ($i = 0; $i < 8; $i++) {
@@ -76,7 +76,7 @@ class Controller
         $mail->Host       = 'smtp.gmail.com';
         $mail->SMTPAuth   = true;
         $mail->Username   = 'dream.studio.ar@gmail.com';
-        $mail->Password   = 'pgpvrrgjlykaqkjd';
+        $mail->Password   = 'sljkqtullausuvwi';
         $mail->SMTPSecure = 'ssl';
         $mail->Port       = 465;
         $mail->setFrom('dream.studio.ar@gmail.com', 'Dream Studio Pvt. Ltd');
