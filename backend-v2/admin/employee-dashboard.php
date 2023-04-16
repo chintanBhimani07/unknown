@@ -100,7 +100,7 @@ while ($h = $hodQry->fetch_assoc()) {
                                         <th>Full Name</th>
                                         <th>Email</th>
                                         <th>Joining Date</th>
-                                        <th>Leaving Date</th>
+                                        <th>Confirm Date</th>
                                         <th>Department</th>
                                         <th>Designation</th>
                                         <th>Action</th>
@@ -118,14 +118,14 @@ while ($h = $hodQry->fetch_assoc()) {
                                             <th scope="row"><?php echo $row['emp_code'] ?></th>
                                             <td><?php echo $row['emp_first_name'] . " " . $row['emp_last_name']  ?></td>
                                             <td><?php echo $row['emp_email'] ?></td>
-                                            <td><?php echo $row['emp_joining_date'] ?></td>
+                                            <td><?php echo date("d-m-Y", strtotime($row['emp_joining_date'])); ?></td>
                                             <td><?php
-                                                if ($row['emp_leaving_date'] == '0000-00-00') {
-                                                    echo "";
-                                                } else {
-                                                    echo $row['emp_leaving_date'];
+                                                if($row['emp_confirmation_date'] == '0000-00-00'){
+                                                    echo '-';
+                                                }else{
+                                                    echo date("d-m-Y", strtotime($row['emp_confirmation_date']));
                                                 }
-                                                ?></td>
+                                            ?></td>
                                             <td><?php echo $row['emp_department'] ?></td>
                                             <td><?php echo $row['emp_designation'] ?></td>
                                             <td class="d-flex align-items-center justify-content-center">

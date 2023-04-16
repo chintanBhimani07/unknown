@@ -302,16 +302,25 @@ class Controller
             }
             $updateEmp = $this->db->query("UPDATE employees SET $emp_data WHERE emp_id='$emp_id'");
             if ($updateEmp) {
-                $hodId = $this->guidV4();
-                if ($emp_designation == 'HOD') {
+                $isHodExists = $this->db->query("SELECT emp_id FROM hod WHERE emp_id='$emp_id';")->num_rows;
+                if ($isHodExists == 0 && $emp_designation == 'HOD') {
+                    $hodId = $this->guidV4();
                     $addHod = $this->db->query("INSERT INTO hod SET hod_id='$hodId', hod_first_name='$emp_first_name', hod_last_name='$emp_last_name', department_name='$emp_department', emp_id='$emp_id' ");
                     if ($addHod) {
                         $this->arr['status'] = 200;
                         $this->arr['message'] = 'Employee and hod updated successfully.';
                         return $this->arr;
+                    } else {
+                        $this->arr['status'] = 500;
+                        $this->arr['message'] = "Employee and hod can't update,Please try sometimes later.";
+                        return $this->arr;
                     }
-                } else {
+                } else if ($isHodExists == 1 && $emp_designation != 'HOD') {
                     $deleteHod = $this->db->query("DELETE FROM hod WHERE emp_id='$emp_id' ");
+                    $this->arr['status'] = 200;
+                    $this->arr['message'] = 'Employee and hod updated successfully.';
+                    return $this->arr;
+                } else {
                     $this->arr['status'] = 200;
                     $this->arr['message'] = 'Employee updated successfully.';
                     return $this->arr;
@@ -360,6 +369,13 @@ class Controller
             $isHod = $this->db->query("SELECT emp_id FROM hod WHERE emp_id='$emp_id'")->num_rows;
             if ($isHod == 1) {
                 $deleteHod = $this->db->query("DELETE FROM hod WHERE emp_id='$emp_id'");
+            }
+            $isUser = $this->db->query("SELECT emp_id FROM users WHERE emp_id='$emp_id'")->num_rows;
+            if ($isUser == 1) {
+                $deleteUser = $this->db->query("DELETE FROM users WHERE emp_id='$emp_id'");
+                if ($_SESSION['login_emp_id'] == $emp_id) {
+                    session_destroy();
+                }
             }
             $this->arr['status'] = 200;
             $this->arr['message'] = 'Employee Delete Successfully.';
@@ -943,7 +959,7 @@ class Controller
                 $this->arr['message'] = 'Something went wrong,please try again later.';
                 return $this->arr;
             }
-        }else{
+        } else {
             $this->arr['status'] = 400;
             $this->arr['message'] = 'Image not set.';
             return $this->arr;

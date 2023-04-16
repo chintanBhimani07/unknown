@@ -23,7 +23,7 @@
                         </div>
                         <div class="form-group row">
                             <div class="col-sm-6 mb-3 mb-sm-0">
-                                <label for="gender" class="col-form-label mr-1">Gender</label>
+                                <label for="gender" class="col-form-label mr-1">Gender</label><span class="text-danger">*</span>
                                 <select class="form-control custom-select" id="gender" name="gender">
                                     <option value="">Select gender</option>
                                     <option value="Male">Male</option>
@@ -32,12 +32,12 @@
                                 </select>
                             </div>
                             <div class="col-sm-6">
-                                <label for="client_contact" class="col-form-label mr-1">Mobile No.</label>
+                                <label for="client_contact" class="col-form-label mr-1">Mobile No.</label><span class="text-danger">*</span>
                                 <input type="text" class="form-control" id="client_contact" name="client_contact" autocomplete="off">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="client_address" class="col-form-label mr-1">Resident Address</label>
+                            <label for="client_address" class="col-form-label mr-1">Resident Address</label><span class="text-danger">*</span>
                             <textarea type="text" class="form-control" id="client_address" name="client_address" autocomplete="off"></textarea>
                         </div>
                         <div class="form-group">

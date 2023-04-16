@@ -89,7 +89,7 @@
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
                                     <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                        Pending</div>
+                                        Hold</div>
                                     <div class="h5 mb-0 font-weight-bold text-gray-800">
                                         <?php
                                         if ($_SESSION['login_user_access_type'] == 1) {
@@ -155,7 +155,7 @@
                                             <th scope="row">
                                                 <?php echo $i++ ?>
                                             </th>
-                                            <td>
+                                            <td class='font-weight-bold text-gray-800'>
                                                 <?php echo $row['project_name'] ?>
                                             </td>
                                             <td>
@@ -177,10 +177,10 @@
                                                 ?>
                                             </td>
                                             <td>
-                                                <?php echo $row['start_date'] ?>
+                                                <?php echo date("d-m-Y", strtotime($row['start_date'])); ?>
                                             </td>
                                             <td>
-                                                <?php echo $row['expected_end_date'] ?>
+                                                <?php echo date("d-m-Y", strtotime($row['expected_end_date'])); ?>
                                             </td>
                                             <td>
                                                 <?php

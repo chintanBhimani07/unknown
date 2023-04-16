@@ -20,65 +20,33 @@ while ($row = $qry->fetch_assoc()) { ?>
                         <div class="collapse show" id="collapseCardExample">
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-lg-5 d-flex align-items-center justify-content-center">
+                                    <div class="col-lg-5">
                                         <div class="row">
                                             <div class="col-xl-12 col-md-12 mb-4">
-                                                <div class="card border-left-primary shadow h-100 py-2">
+                                                <div class="card border-left-dark h-100 py-2">
                                                     <div class="card-body">
                                                         <div class="row no-gutters align-items-center">
                                                             <div class="col mr-2">
-                                                                <div class="text font-weight-bold text-primary text-uppercase mb-1">
+                                                                <div class="text font-weight-bold text-dark text-uppercase mb-1" style="font-size:1.2rem;">
                                                                     Project Employees</div>
-                                                                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                                <div class="h6 mb-0 font-weight-bold text-gray-800">
                                                                     <ol>
                                                                         <?php
                                                                         $data = $con->query("SELECT users_id FROM projects WHERE project_id='$id';");
                                                                         while ($r = $data->fetch_assoc()) {
                                                                             $arr = explode(",", $r['users_id']);
-                                                                            foreach ($arr as $v) { ?>
-                                                                                <li class="my-3">
+                                                                            foreach ($arr as $v) {
+                                                                                if ($v != '') { ?>
+                                                                                    <li class="my-3">
                                                                                     <?php
                                                                                     $userName = $con->query("SELECT user_first_name,user_last_name FROM users WHERE user_id='$v';");
                                                                                     while ($u = $userName->fetch_assoc()) {
                                                                                         echo $u['user_first_name'] . " " . $u['user_last_name'];
                                                                                     }
-                                                                                    ?></li>
-                                                                        <?php
+                                                                                }  ?></li>
+                                                                            <?php
                                                                             }
-                                                                        }
-                                                                        ?>
-                                                                    </ol>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-xl-12 col-md-12 mb-4">
-                                                <div class="card border-left-primary shadow h-100 py-2">
-                                                    <div class="card-body">
-                                                        <div class="row no-gutters align-items-center">
-                                                            <div class="col mr-2">
-                                                                <div class="text font-weight-bold text-primary text-uppercase mb-1">
-                                                                    Project Engineers</div>
-                                                                <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                                                    <ol>
-                                                                        <?php
-                                                                        $data = $con->query("SELECT engineers_id FROM projects WHERE project_id='$id';");
-                                                                        while ($r = $data->fetch_assoc()) {
-                                                                            $arr = explode(",", $r['engineers_id']);
-                                                                            foreach ($arr as $v) { ?>
-                                                                                <li class="my-3">
-                                                                                    <?php
-                                                                                    $userName = $con->query("SELECT user_first_name,user_last_name FROM users WHERE user_id='$v';");
-                                                                                    while ($u = $userName->fetch_assoc()) {
-                                                                                        echo $u['user_first_name'] . " " . $u['user_last_name'];
-                                                                                    }
-                                                                                    ?></li>
-                                                                        <?php
-                                                                            }
-                                                                        }
-                                                                        ?>
+                                                                        } ?>
                                                                     </ol>
                                                                 </div>
                                                             </div>
@@ -105,7 +73,14 @@ while ($row = $qry->fetch_assoc()) { ?>
                                                     </div>
                                                     <div class="col-lg-9 my-2">
                                                         <span class="font-weight-bold">
-                                                            <?php echo $row['project_status'] ?>
+                                                            <?php
+                                                            if ($row['project_status'] == 2) { ?>
+                                                                <span style="color: green">Complete</span>
+                                                            <?php } else if ($row['project_status'] == 1) { ?>
+                                                                <span style="color: blue">Running</span>
+                                                            <?php } else { ?>
+                                                                <span style="color: red">Hold</span>
+                                                            <?php } ?>
                                                         </span>
                                                     </div>
                                                     <div class="col-lg-3 my-2">
@@ -134,7 +109,7 @@ while ($row = $qry->fetch_assoc()) { ?>
                                                     </div>
                                                     <div class="col-lg-9 my-2">
                                                         <span class="font-weight-bold">
-                                                            <?php echo ucwords($row['start_date']) ?>
+                                                            <?php echo date("d-m-Y", strtotime($row['start_date'])); ?>
                                                         </span>
                                                     </div>
                                                     <div class="col-lg-3 my-2">
@@ -142,11 +117,11 @@ while ($row = $qry->fetch_assoc()) { ?>
                                                     </div>
                                                     <div class="col-lg-9 my-2">
                                                         <span class="font-weight-bold">
-                                                            <?php echo ucwords($row['expected_end_date']) ?>
+                                                            <?php echo date("d-m-Y", strtotime($row['expected_end_date'])); ?>
                                                         </span>
                                                     </div>
                                                     <div class="col-lg-3 my-2">
-                                                        <span class="mr-2 d-none d-lg-inline text-gray-500">Head Of Department:</span>
+                                                        <span class="mr-2 d-none d-lg-inline text-gray-500">HOD:</span>
                                                     </div>
                                                     <div class="col-lg-9 my-2">
                                                         <span class="font-weight-bold">

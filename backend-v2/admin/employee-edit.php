@@ -13,7 +13,7 @@ while ($row = $qry->fetch_assoc()) { ?>
         <div class="row add-employee-form scroll-component">
             <div class="col-xl-12 col-lg-7">
                 <div class="card shadow mb-4">
-                    
+
                     <div class="card-body">
                         <form id="edit_employee_form">
                             <div class="form-group">
@@ -55,7 +55,8 @@ while ($row = $qry->fetch_assoc()) { ?>
                             </div>
                             <div class="form-group">
                                 <label for="emp_email" class="col-form-label mr-1">Email Address</label><span class="text-danger">*</span>
-                                <input type="email" class="form-control" id="emp_email" name="emp_email" autocomplete="off" value="<?php echo $row['emp_email'] ?>">
+                                <input type="email" class="form-control" id="emp_email" autocomplete="off" value="<?php echo $row['emp_email'] ?>" disabled>
+                                <input type="hidden" class="form-control" id="emp_email" name="emp_email" autocomplete="off" value="<?php echo $row['emp_email'] ?>">
                             </div>
 
                             <div class="form-group">
@@ -111,20 +112,9 @@ while ($row = $qry->fetch_assoc()) { ?>
                                                                                                                                                                 } ?>">
                                 </div>
                             </div>
-                            <div class="form-group row">
-                                <div class="col-sm-6 mb-3 mb-sm-0">
-                                    <label for="emp_leaving_date" class="col-form-label mr-1">Leaving Date</label>
-                                    <input type="date" class="form-control" id="emp_leaving_date" name="emp_leaving_date" autocomplete="off" value="<?php
-                                                                                                                                                    if ($row['emp_leaving_date'] != "0000-00-00") {
-                                                                                                                                                        echo $row['emp_leaving_date'];
-                                                                                                                                                    } else {
-                                                                                                                                                        echo "";
-                                                                                                                                                    } ?>">
-                                </div>
-                                <div class="col-sm-6">
-                                    <label for="emp_working_hours" class="col-form-label mr-1">Working Hours</label><span class="text-danger">*</span>
-                                    <input type="time" class="form-control" id="emp_working_hours" name="emp_working_hours" autocomplete="off" value="<?php echo $row['emp_working_hours'] ?>">
-                                </div>
+                            <div class="form-group">
+                                <label for="emp_working_hours" class="col-form-label mr-1">Working Hours</label><span class="text-danger">*</span>
+                                <input type="time" class="form-control" id="emp_working_hours" name="emp_working_hours" autocomplete="off" value="<?php echo $row['emp_working_hours'] ?>">
                             </div>
                             <div class="form-group">
                                 <label for="emp_profile_pic" class="col-form-label mr-1">Profile Picture</label>
@@ -149,3 +139,4 @@ while ($row = $qry->fetch_assoc()) { ?>
     </div>
 
 <?php } ?>
+

@@ -25,7 +25,7 @@
                             <input type="date" class="form-control" id="exp_date" name="exp_date" autocomplete="off" >
                         </div>
                         <div class="form-group">
-                            <label for="exp_bill_photo" class="col-form-label mr-1">Expenses Bill Picture</label><span class="text-danger">*</span>
+                            <label for="exp_bill_photo" class="col-form-label mr-1">Expenses Bill Picture</label>
                             <input type="file" class="custom-file" id="exp_bill_photo" name="exp_bill_photo" onchange="preview()">
                             <img id="thumb" src="" width="100px" />
                         </div>
@@ -34,84 +34,12 @@
                                 <button class="btn btn-primary btn-user btn-block" type="submit">Submit Details</button>
                             </div>
                             <div class="col-sm-6">
-                                <a href="./index.php?page=expenses-dashboard" class="btn btn-warning btn-user btn-block text-dark">Back to Expenses List</a>
+                                <a href="./index.php?page=expenses-dashboard" class="btn btn-warning btn-user btn-block text-dark" id='submitBtn'>Back to Expenses List</a>
                             </div>
                         </div>
-
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-<script>
-    function preview() {
-        thumb.src = URL.createObjectURL(event.target.files[0]);
-    }
-
-    function uploadImg(id) {
-        if ($('#exp_bill_photo').val()) {
-            let img = $('#exp_bill_photo').prop('files')[0];
-            var formData = new FormData();
-            formData.append('exp_bill_photo', img);
-            formData.append('exp_id', id);
-            $.ajax({
-                type: "POST",
-                url: "./php/actions.php?action=upload_exp_profile",
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function(response) {
-                    console.log(response);
-                },
-                error: function(xhr, status, error) {
-                    console.log(xhr.responseText);
-                }
-            });
-        } else {}
-    }
-
-    $(document).ready(function() {
-
-        $("#new_exp_form").validate({
-            rules: {
-                exp_name: "required",
-                exp_amount: "required",
-                exp_date: "required",
-                exp_bill_photo: "required",
-                exp_name: {
-                    required: true
-                },
-                exp_amount: {
-                    required: true
-                },
-                exp_date: {
-                    required: true
-                },
-                exp_bill_photo: {
-                    required: true
-                },
-            },
-            messages: {
-                exp_name: "Please provide a valid name",
-                exp_amount: "Please provide a valid amount",
-                exp_date: "Please select a valid date",
-                exp_bill_photo: "Please select a valid photo",
-            },
-            submitHandler: function(form) {
-                $.ajax({
-                    url: './php/actions.php?action=save_exp',
-                    data: $("#new_exp_form").serialize(),
-                    type: 'POST',
-                    success: function(resp) {
-                        uploadImg(resp);
-                        setTimeout(() => {
-                            location.reload();
-                        }, 1000);
-                    }
-                });
-            }
-        });
-    });
-</script>

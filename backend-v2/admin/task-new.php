@@ -39,30 +39,11 @@ $hodId = '';
                         <div class="form-group">
                             <label for="task_assign_to" class="col-form-label mr-1">Task Assign To</label><span class="text-danger">*</span>
                             <select class="form-control custom-select" id="task_assign_to" name="task_assign_to" >
-                                <option value="">Select Employee</option>
-                                <option disabled style="font-weight:900;">Architecture & Interiors</option>
+                                <option value="">Select Employee Architecture & Interiors</option>
                                 <?php
                                 $data = $con->query("SELECT users_id FROM projects WHERE project_id='$projectId';");
                                 while ($r = $data->fetch_assoc()) {
                                     $arr = explode(",", $r['users_id']);
-                                    foreach ($arr as $v) { ?>
-                                        <option value="<?php echo $v ?>">
-                                            <?php
-                                            $userName = $con->query("SELECT user_first_name,user_last_name FROM users WHERE user_id='$v';");
-                                            while ($u = $userName->fetch_assoc()) {
-                                                echo $u['user_first_name'] . " " . $u['user_last_name'];
-                                            }
-                                            ?>
-                                        </option>
-                                <?php
-                                    }
-                                }
-                                ?>
-                                <option disabled style="font-weight:900;">Engineers</option>
-                                <?php
-                                $data = $con->query("SELECT engineers_id FROM projects WHERE project_id='$projectId';");
-                                while ($r = $data->fetch_assoc()) {
-                                    $arr = explode(",", $r['engineers_id']);
                                     foreach ($arr as $v) { ?>
                                         <option value="<?php echo $v ?>">
                                             <?php

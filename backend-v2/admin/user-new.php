@@ -1,4 +1,3 @@
-
 <div class="container-fluid">
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">New User</h1>
@@ -39,7 +38,6 @@
                                 <option value="" selected>Select Access Type</option>
                                 <option value="2">Employee</option>
                                 <option value="1">Admin</option>
-                                <option value="3">Engineer</option>
                                 <option value="4">HOD</option>
                             </select>
                         </div>

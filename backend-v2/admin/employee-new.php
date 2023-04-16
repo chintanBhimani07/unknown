@@ -109,15 +109,9 @@ while ($l = $lastInsert->fetch_assoc()) {
                                 <input type="date" class="form-control" id="emp_confirmation_date" name="emp_confirmation_date" autocomplete="off">
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <div class="col-sm-6 mb-3 mb-sm-0">
-                                <label for="emp_leaving_date" class="col-form-label mr-1">Leaving Date</label>
-                                <input type="date" class="form-control" id="emp_leaving_date" name="emp_leaving_date" autocomplete="off">
-                            </div>
-                            <div class="col-sm-6">
-                                <label for="emp_working_hours" class="col-form-label mr-1">Working Hours</label><span class="text-danger">*</span>
-                                <input type="time" class="form-control" id="emp_working_hours" name="emp_working_hours" autocomplete="off">
-                            </div>
+                        <div class="form-group">
+                            <label for="emp_working_hours" class="col-form-label mr-1">Working Hours</label><span class="text-danger">*</span>
+                            <input type="time" class="form-control" id="emp_working_hours" name="emp_working_hours" autocomplete="off">
                         </div>
                         <div class="form-group">
                             <label for="emp_profile_pic" class="col-form-label mr-1">Profile Picture</label>

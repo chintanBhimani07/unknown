@@ -130,7 +130,7 @@ while ($row = $qry->fetch_assoc()) { ?>
                             </div>
                             <div class="col-lg-10 my-2">
                                 <span class="font-weight-bold">
-                                    <?php echo $row['emp_dob'] ?>
+                                    <?php echo date("d-m-Y", strtotime($row['emp_dob']));?>
                                 </span>
                             </div>
                             <div class="col-lg-2 my-2">
@@ -166,7 +166,7 @@ while ($row = $qry->fetch_assoc()) { ?>
                             </div>
                             <div class="col-lg-10 my-2">
                                 <span class="font-weight-bold">
-                                    <?php echo ($row['emp_joining_date']) ?>
+                                    <?php echo date("d-m-Y", strtotime($row['emp_joining_date'])); ?>
                                 </span>
                             </div>
                             <div class="col-lg-2 my-2">
@@ -178,21 +178,7 @@ while ($row = $qry->fetch_assoc()) { ?>
                                     if ($row['emp_confirmation_date'] == '0000-00-00') {
                                         echo '-';
                                     } else {
-                                        echo ($row['emp_confirmation_date']);
-                                    }
-                                    ?>
-                                </span>
-                            </div>
-                            <div class="col-lg-2 my-2">
-                                <span class="mr-2 d-none d-lg-inline text-gray-500">Leaving Date:</span>
-                            </div>
-                            <div class="col-lg-10 my-2">
-                                <span class="font-weight-bold">
-                                    <?php
-                                    if ($row['emp_leaving_date'] == '0000-00-00') {
-                                        echo '-';
-                                    } else {
-                                        echo ($row['emp_leaving_date']);
+                                        echo date("d-m-Y", strtotime($row['emp_confirmation_date']));
                                     }
                                     ?>
                                 </span>

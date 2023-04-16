@@ -489,7 +489,8 @@ $(document).ready(function () {
         success: function (res) {
           res = JSON.parse(res);
           if (res.status == 200) {
-            $("#new_user_form")[0].reset();
+            // $("#new_user_form")[0].reset();
+            location.reload();
             toastr.success(res.message);
           } else {
             toastr.error(res.message);
@@ -1023,6 +1024,9 @@ $(document).ready(function () {
       client_first_name: "required",
       client_last_name: "required",
       client_email: "required",
+      gender: "required",
+      client_contact: "required",
+      client_address: "required",
       client_first_name: {
         required: true,
       },
@@ -1033,6 +1037,19 @@ $(document).ready(function () {
         required: true,
         email: true,
       },
+      gender: {
+        required: true,
+      },
+      client_contact: {
+        required: true,
+        minlength: 10,
+        maxlength: 10,
+        number: true,
+      },
+      client_address: {
+        required: true
+      },
+      
     },
     messages: {
       client_first_name: {
@@ -1042,6 +1059,17 @@ $(document).ready(function () {
         required: "Please provide a valid Last Name",
       },
       client_email: "Please Provide valid Email",
+      client_contact: {
+        required: "Please provide a phone number",
+        minlength: "Phone number must be min 10 characters long",
+        maxlength: "Phone number must not be more than 10 characters long",
+      },
+      gender: {
+        required: "Please select a valid gender",
+      },
+      client_address: {
+        required: "Please provide a valid address",
+      },
     },
     submitHandler: function (form) {
       $.ajax({
@@ -1121,7 +1149,6 @@ $(document).ready(function () {
       exp_name: "required",
       exp_amount: "required",
       exp_date: "required",
-      exp_bill_photo: "required",
       exp_name: {
         required: true,
       },
@@ -1131,15 +1158,11 @@ $(document).ready(function () {
       exp_date: {
         required: true,
       },
-      exp_bill_photo: {
-        required: true,
-      },
     },
     messages: {
       exp_name: "Please provide a valid name",
       exp_amount: "Please provide a valid amount",
       exp_date: "Please select a valid date",
-      exp_bill_photo: "Please select a valid photo",
     },
     submitHandler: function (form) {
       $.ajax({
@@ -1150,7 +1173,9 @@ $(document).ready(function () {
           res = JSON.parse(res);
           if (res.status == 200) {
             uploadExpImg(res.id);
+            location.reload();
             $("#new_exp_form")[0].reset();
+
             toastr.success(res.message);
           } else {
             toastr.error(res.message);
@@ -1170,9 +1195,8 @@ $(document).ready(function () {
       exp_name: "required",
       exp_amount: "required",
       exp_date: "required",
-      exp_bill_photo: "required",
       exp_name: {
-        required: true,
+        required: true, 
       },
       exp_amount: {
         required: true,
@@ -1180,15 +1204,11 @@ $(document).ready(function () {
       exp_date: {
         required: true,
       },
-      exp_bill_photo: {
-        required: true,
-      },
     },
     messages: {
       exp_name: "Please provide a valid name",
       exp_amount: "Please provide a valid amount",
       exp_date: "Please select a valid date",
-      exp_bill_photo: "Please select a valid photo",
     },
     submitHandler: function (form) {
       $.ajax({

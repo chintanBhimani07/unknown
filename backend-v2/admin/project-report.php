@@ -54,7 +54,7 @@
                                         <td>
                                             <?php echo $row['project_name'] ?>
                                             <small class="d-block text-danger">
-                                                Due: <?php echo date("Y-m-d", strtotime($row['expected_end_date'])) ?>
+                                                Due: <?php echo date("d-m-Y", strtotime($row['expected_end_date'])) ?>
                                             </small>
                                         </td>
                                         <td><?php echo number_format($totalTask) ?></td>

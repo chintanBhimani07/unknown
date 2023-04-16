@@ -21,3 +21,4 @@ if (!file_exists($page . '.php')) {
 include './layout-bottom.components.php';
 
 include './bottom.components.php';
+

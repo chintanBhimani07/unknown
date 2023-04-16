@@ -1,11 +1,8 @@
-
 <div class="container-fluid">
-
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">New Project</h1>
         <a href="./index.php?page=project-dashboard" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-list fa-sm text-white mr-2"></i>Projects</a>
     </div>
-
     <div class="row add-employee-form scroll-component">
         <div class="col-xl-12 col-lg-7">
             <div class="card shadow mb-4">
@@ -72,43 +69,23 @@
                             <label for="project_location" class="col-form-label mr-1">Project Location</label><span class="text-danger">*</span>
                             <textarea type="text" class="form-control" id="project_location" name="project_location" autocomplete="off"></textarea>
                         </div>
-                        <div class="form-group row">
-                            <div class="col-sm-6 mb-3 mb-sm-0">
-                                <label for="engineers_id" class="col-form-label mr-1">Engineers</label>
-                                <select class="form-control custom-select" id="engineers_id" multiple name="engineers_id[]">
-                                    <option value="">Select Engineers</option>
-                                    <?php
-                                    $qry = $con->query("SELECT emp_id,user_id,user_first_name,user_last_name FROM users WHERE user_access_type=3 ORDER BY user_first_name ASC ;");
-                                    while ($r = $qry->fetch_assoc()) {
-                                        $designation = '';
-                                        $empId = $r['emp_id'];
-                                        $empDesQry = $con->query("SELECT emp_designation FROM employees WHERE emp_id='$empId'");
-                                        while ($e = $empDesQry->fetch_assoc()) {
-                                            $designation = $e['emp_designation'];
-                                        }
-                                    ?>
-                                        <option value="<?php echo $r['user_id'] ?>"><?php echo $r['user_first_name'] . " " . $r['user_last_name'] . " - " . $designation ?></option>
-                                    <?php } ?>
-                                </select>
-                            </div>
-                            <div class="col-sm-6">
-                                <label for="users_id" class="col-form-label mr-1">Users</label>
-                                <select class="form-control custom-select" id="users_id" multiple name="users_id[]">
-                                    <option value="">Select Users</option>
-                                    <?php
-                                    $qry = $con->query("SELECT emp_id,user_id,user_first_name,user_last_name FROM users WHERE user_access_type=2 ORDER BY user_first_name ASC ;");
-                                    while ($r = $qry->fetch_assoc()) {
-                                        $designation = '';
-                                        $empId = $r['emp_id'];
-                                        $empDesQry = $con->query("SELECT emp_designation FROM employees WHERE emp_id='$empId'");
-                                        while ($e = $empDesQry->fetch_assoc()) {
-                                            $designation = $e['emp_designation'];
-                                        }
-                                    ?>
-                                        <option value="<?php echo $r['user_id'] ?>"><?php echo $r['user_first_name'] . " " . $r['user_last_name'] . " - " . $designation ?></option>
-                                    <?php } ?>
-                                </select>
-                            </div>
+                        <div class="form-group">
+                            <label for="users_id" class="col-form-label mr-1">Users</label>
+                            <select class="form-control custom-select" id="users_id" multiple name="users_id[]">
+                                <option value="" disabled class="text font-weight-bold text-dark text-uppercase mb-1">Select Employees</option>
+                                <?php
+                                $qry = $con->query("SELECT emp_id,user_id,user_first_name,user_last_name FROM users WHERE user_access_type=2 ORDER BY user_first_name ASC ;");
+                                while ($r = $qry->fetch_assoc()) {
+                                    $designation = '';
+                                    $empId = $r['emp_id'];
+                                    $empDesQry = $con->query("SELECT emp_designation FROM employees WHERE emp_id='$empId'");
+                                    while ($e = $empDesQry->fetch_assoc()) {
+                                        $designation = $e['emp_designation'];
+                                    }
+                                ?>
+                                    <option value="<?php echo $r['user_id'] ?>"><?php echo $r['user_first_name'] . " " . $r['user_last_name'] . " - " . $designation ?></option>
+                                <?php } ?>
+                            </select>
                         </div>
                         <div class="form-group row">
                             <div class="col-sm-6 mb-3 mb-sm-0">

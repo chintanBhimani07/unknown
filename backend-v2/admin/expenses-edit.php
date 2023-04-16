@@ -41,8 +41,7 @@ while ($row = $qry->fetch_assoc()) { ?>
                                     value="<?php echo $row['exp_date'] ?>" required>
                             </div>
                             <div class="form-group">
-                                <label for="exp_bill_photo" class="col-form-label mr-1">Expenses Bill Picture</label><span
-                                    class="text-danger">*</span>
+                                <label for="exp_bill_photo" class="col-form-label mr-1">Expenses Bill Picture</label>
                                 <input type="file" class="custom-file" id="exp_bill_photo" name="exp_bill_photo"
                                     autocomplete="off" onchange="preview()">
                                 <input type="hidden" class="custom-file" id="oldFile" name="oldFile" autocomplete="off"

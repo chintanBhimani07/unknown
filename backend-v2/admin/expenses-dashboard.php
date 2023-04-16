@@ -5,38 +5,6 @@
     </div>
     <div class="scroll-component">
         <div class="row">
-            <div class="col-xl-6 col-md-6 mb-4">
-                <div class="card border-left-primary shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                    Total Amount Of Expenses</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800"><?php
-                                                                                    echo $con->query("SELECT * FROM expenses;")->num_rows;
-                                                                                    ?></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-6 col-md-6 mb-4">
-                <div class="card border-left-success shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                    Conformed</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800"><?php
-                                                                                    // echo $con->query("SELECT * FROM expenses WHERE emp_confirmation_date <> '0000-00-00';")->num_rows . ' ' . 'Expenses';
-                                                                                    ?></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
             <div class="col-xl-12 col-lg-7">
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
@@ -92,16 +60,15 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header" style="padding: 0.5rem 1rem; background:#3e64d3;color:#fff">
-                <h5 class="modal-title" id="addStatusModalLabel">Delete Employee</h5>
+                <h5 class="modal-title" id="addStatusModalLabel">Delete Expense</h5>
                 <button type="button" class="close closeModal" style="color:#fff">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <p>Are you sure want to remove employee permanently?</p>
+                <p>Are you sure want to remove expense permanently?</p>
             </div>
             <div class="modal-footer">
-
                 <button type="button" class="btn btn-secondary closeModal">No</button>
                 <button type="button" class="btn btn-primary" id="submitModel">Yes</button>
             </div>

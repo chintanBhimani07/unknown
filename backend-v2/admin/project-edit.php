@@ -97,43 +97,23 @@ while ($row = $qry->fetch_assoc()) { ?>
                                 <label for="project_location" class="col-form-label mr-1">Project Location</label><span class="text-danger">*</span>
                                 <textarea type="text" class="form-control" id="project_location" name="project_location" autocomplete="off"><?php echo $row['project_location'] ?></textarea>
                             </div>
-                            <div class="form-group row">
-                                <div class="col-sm-6 mb-3 mb-sm-0">
-                                    <label for="engineers_id" class="col-form-label mr-1">Engineers</label>
-                                    <select class="form-control custom-select" id="engineers_id" multiple name="engineers_id[]">
-                                        <option value="">Select Engineers</option>
-                                        <?php
-                                        $qry = $con->query("SELECT emp_id,user_id,user_first_name,user_last_name FROM users WHERE user_access_type=3 ORDER BY user_first_name ASC ;");
-                                        while ($r = $qry->fetch_assoc()) {
-                                            $designation = '';
-                                            $empId = $r['emp_id'];
-                                            $empDesQry = $con->query("SELECT emp_designation FROM employees WHERE emp_id='$empId'");
-                                            while ($e = $empDesQry->fetch_assoc()) {
-                                                $designation = $e['emp_designation'];
-                                            }
-                                        ?>
-                                            <option value="<?php echo $r['user_id'] ?>" <?php echo (in_array($r['user_id'], explode(',', $row['engineers_id'])) ? "selected" : "") ?>><?php echo $r['user_first_name'] . " " . $r['user_last_name'] . " - " . $designation ?></option>
-                                        <?php } ?>
-                                    </select>
-                                </div>
-                                <div class="col-sm-6">
-                                    <label for="users_id" class="col-form-label mr-1">Users</label>
-                                    <select class="form-control custom-select" id="users_id" multiple name="users_id[]">
-                                        <option value="">Select Users</option>
-                                        <?php
-                                        $qry = $con->query("SELECT emp_id,user_id,user_first_name,user_last_name FROM users WHERE user_access_type=2 ORDER BY user_first_name ASC ;");
-                                        while ($r = $qry->fetch_assoc()) {
-                                            $designation = '';
-                                            $empId = $r['emp_id'];
-                                            $empDesQry = $con->query("SELECT emp_designation FROM employees WHERE emp_id='$empId'");
-                                            while ($e = $empDesQry->fetch_assoc()) {
-                                                $designation = $e['emp_designation'];
-                                            }
-                                        ?>
-                                            <option value="<?php echo $r['user_id'] ?>" <?php echo (in_array($r['user_id'], explode(',', $row['users_id'])) ? "selected" : "") ?>><?php echo $r['user_first_name'] . " " . $r['user_last_name'] . " - " . $designation ?></option>
-                                        <?php } ?>
-                                    </select>
-                                </div>
+                            <div class="form-group">
+                                <label for="users_id" class="col-form-label mr-1">Users</label>
+                                <select class="form-control custom-select" id="users_id" multiple name="users_id[]">
+                                    <option value="">Select Users</option>
+                                    <?php
+                                    $qry = $con->query("SELECT emp_id,user_id,user_first_name,user_last_name FROM users WHERE user_access_type=2 ORDER BY user_first_name ASC ;");
+                                    while ($r = $qry->fetch_assoc()) {
+                                        $designation = '';
+                                        $empId = $r['emp_id'];
+                                        $empDesQry = $con->query("SELECT emp_designation FROM employees WHERE emp_id='$empId'");
+                                        while ($e = $empDesQry->fetch_assoc()) {
+                                            $designation = $e['emp_designation'];
+                                        }
+                                    ?>
+                                        <option value="<?php echo $r['user_id'] ?>" <?php echo (in_array($r['user_id'], explode(',', $row['users_id'])) ? "selected" : "") ?>><?php echo $r['user_first_name'] . " " . $r['user_last_name'] . " - " . $designation ?></option>
+                                    <?php } ?>
+                                </select>
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
@@ -143,7 +123,6 @@ while ($row = $qry->fetch_assoc()) { ?>
                                     <a href="./index.php?page=project-dashboard" class="btn btn-warning btn-user btn-block text-dark">Back to Project List</a>
                                 </div>
                             </div>
-
                         </form>
                     </div>
                 </div>
